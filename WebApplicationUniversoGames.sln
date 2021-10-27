@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationUniversoGames", "WebApplicationUniversoGames\WebApplicationUniversoGames.csproj", "{EEE2FA8D-2E02-4CB8-B180-7DA6EFB65B93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEE2FA8D-2E02-4CB8-B180-7DA6EFB65B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEE2FA8D-2E02-4CB8-B180-7DA6EFB65B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEE2FA8D-2E02-4CB8-B180-7DA6EFB65B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEE2FA8D-2E02-4CB8-B180-7DA6EFB65B93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6272C47D-3CCF-42EF-B45A-60C085B96BCE}
+	EndGlobalSection
+EndGlobal

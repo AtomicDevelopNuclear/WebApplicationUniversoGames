@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplicationUniversoGames.Models.News>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+    <h1>Index - News</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" asp-controller="News" class="btn btn-outline-primary">Crea</a>
+        </div>
+    </div>
+    @if (Model.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">DateOfPublish</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var news in Model)
+                {
+                    <tr>
+                        <td width="15%">@news.Title</td>
+                        <td width="15%">@news.Category</td>
+                        <td width="15%">@news.Image</td>
+                        <td width="15%">@news.Content</td>
+                        <td width="15%">@news.DateOfPublish.ToShortDateString()</td>
+                        <td width="15%">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-danger mx-1" asp-action="Delete" asp-controller="News" asp-route-id="@news.Id">Delete</a>
+                                <a class="btn btn-warning mx-1" asp-action="Update" asp-controller="News" asp-route-id="@news.Id">Update</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Non ci sono News</p>
+    }
+</div>
