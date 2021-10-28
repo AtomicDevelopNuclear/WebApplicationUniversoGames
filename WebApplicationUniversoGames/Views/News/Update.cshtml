@@ -8,20 +8,21 @@
     <input asp-for="Id" hidden />
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
-        <input asp-for="Title" class="form-control" >
+        <input asp-for="Title" class="form-control">
     </div>
     <div class="mb-3">
         <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control" >
+        <input asp-for="Category" class="form-control">
     </div>
     <div class="mb-3">
         <label asp-for="Image" class="form-label">Image</label>
-        <input asp-for="Image" class="form-control" >
+        <input asp-for="Image" class="form-control">
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>
-        <textarea asp-for="Content" class="form-control" rows="10" ></textarea>
+        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
     </div>
+    <input asp-for="DateOfPublish" hidden />
     <div class="form-group row">
         <div class="col">
             <input type="submit" value="Update" class="btn btn-success" width="65" />

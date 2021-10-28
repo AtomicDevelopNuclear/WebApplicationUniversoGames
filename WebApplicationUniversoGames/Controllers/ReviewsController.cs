@@ -83,7 +83,6 @@ namespace WebApplicationUniversoGames.Controllers
         {
             if (ModelState.IsValid) // se il form e' valido
             {
-                review.Date = DateTime.Now;
                 _ctx.Reviews.Update(review);
                 _ctx.SaveChanges();
                 return RedirectToAction("Index");
