@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
 
@@ -19,7 +20,8 @@ namespace WebApplicationUniversoGames.Controllers
         //Ogni IAction è un'azione che permette di...
         public IActionResult Index()
         {
-            return View(_ctx.News);
+            //Prendo con LINQ tutti gli elementi in maniera discendente a partire dalla data...in Lista
+            return View(_ctx.News.OrderByDescending(news => news.DateOfPublish).Take(10).ToList());
         }
 
         //GetCreateNews
@@ -90,7 +92,6 @@ namespace WebApplicationUniversoGames.Controllers
         {
             if (ModelState.IsValid)
             {
-                news.DateOfPublish = DateTime.Now;
                 _ctx.News.Update(news);
                 _ctx.SaveChanges();
                 return RedirectToAction("Index");
