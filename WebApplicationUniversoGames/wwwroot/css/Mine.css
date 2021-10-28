@@ -3,3 +3,38 @@
     overflow: hidden;
     white-space: nowrap;
 }
+body {
+    background-image: url("https://images.everyeye.it/img-notizie/quanta-materia-c-e-nell-universo-risposta-precisa-sempre-v3-471745-1280x720.jpg%22");
+    background-size:cover;     
+    background-position:center;     
+    background-repeat: no-repeat;     
+    background-attachment: fixed;     
+    height:100vh; } 
+
+.btn-primary {     
+    color: #fff;     
+    background-color: #ff1178;     
+    border:none;      
+
+} 
+
+.btn-primary:hover {     
+    background-color: #ff1178;     
+    color: black; 
+} 
+
+.customForm label{     
+    color:yellow 
+} 
+
+h1 {     
+    color:#ff911a !important; 
+
+} 
+
+.navbar{     
+    height:100px !important;
+} 
+.card {     
+    background-color: rgba(255, 255, 255, 0.2) !important; 
+}

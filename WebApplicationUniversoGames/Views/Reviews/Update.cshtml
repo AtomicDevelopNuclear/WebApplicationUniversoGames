@@ -5,7 +5,7 @@
 
 <h1>Update Review @Model.Title</h1>
 <!-- asp-action si riferisce all'update del controller, in questo caso il button'-->
-<form asp-action="Update" method="post">
+<form asp-action="Update" method="post" class="customForm">
     <input asp-for="Id" hidden />
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
