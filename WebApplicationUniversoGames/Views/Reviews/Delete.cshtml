@@ -1,0 +1,31 @@
+﻿@model WebApplicationUniversoGames.Models.Review
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Vuoi Eliminare La Reviews Di @Model.Title?</h1>
+<form asp-action="DeleteReviews" method="post">
+    <input asp-for="Id" hidden />
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" disabled>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rev" class="form-label">Review</label>
+        <textarea asp-for="Rev" class="form-control" rows="10" disabled></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Score" class="form-label">Score</label>
+        <input asp-for="Score" class="form-control" disabled>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label">Image</label>
+        <input asp-for="Image" class="form-control" disabled>
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <input type="submit" name="" value="Delete" class="btn btn-info" width="65" />
+            <a asp-action="Index" class="btn btn-outline-info" width="65">Indietro</a>
+        </div>
+    </div>
+</form>
