@@ -97,5 +97,19 @@ namespace WebApplicationUniversoGames.Controllers
             }
             return View(news);
         }
+        //httpget to view Details
+        public IActionResult Details(int? id)
+        {
+            if(id is null || id == 0)
+            {
+                return NotFound();
+            }
+            var newsDetails = _ctx.News.Find(id);
+            if(newsDetails is null)
+            {
+                return NotFound();
+            }
+            return View(newsDetails);
+        }
     }
 }
