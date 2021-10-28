@@ -38,3 +38,15 @@ h1 {
 .card {     
     background-color: rgba(255, 255, 255, 0.2) !important; 
 }
+
+/*Use inspect element to see classes and use CSS advanced selector to modify pagination*/
+
+.pagination li{
+    font-size: 1.5rem;
+    color:springgreen;
+    
+}
+.pagination a {
+    color: antiquewhite;
+    background-color: magenta;
+}
