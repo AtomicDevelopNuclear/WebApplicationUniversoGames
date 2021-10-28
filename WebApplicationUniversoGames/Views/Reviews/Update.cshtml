@@ -1,0 +1,32 @@
+﻿@model WebApplicationUniversoGames.Models.Review
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update Review @Model.Title</h1>
+<!-- asp-action si riferisce all'update del controller, in questo caso il button'-->
+<form asp-action="Update" method="post">
+    <input asp-for="Id" hidden />
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Rev" class="form-label">Revisione</label>
+        <input asp-for="Rev" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Score" class="form-label">Score</label>
+        <input asp-for="Score" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Image" class="form-label">Immagine</label>
+        <input asp-for="Image" class="form-control" />
+    </div>
+    <div class="form-group row">
+        <div class="col">
+            <input type="submit" value="Update" class="btn btn-success" width="65" />
+            <a asp-action="Index" class="btn btn-outline-info" widht="65">Indietro</a>
+        </div>
+    </div>
+</form>

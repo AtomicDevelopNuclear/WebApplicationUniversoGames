@@ -63,5 +63,32 @@ namespace WebApplicationUniversoGames.Controllers
             _ctx.SaveChanges();
             return Redirect("Index");
         }
+
+        public IActionResult Update(int? id)
+        {
+            if (id is null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _ctx.Reviews.Find(id);
+            if (obj is null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Review review)
+        {
+            if (ModelState.IsValid) // se il form e' valido
+            {
+                review.Date = DateTime.Now;
+                _ctx.Reviews.Update(review);
+                _ctx.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(review);
+        }
     }
 }
