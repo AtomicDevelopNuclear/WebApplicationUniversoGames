@@ -27,7 +27,6 @@ namespace WebApplicationUniversoGames.Controllers
         }
         public IActionResult Index(int? page)
         {
-
             var customModel = new Tuple<List<News>, List<Review>>(GetAllNews(), GetAllReviews());
             return View(customModel);
         }
