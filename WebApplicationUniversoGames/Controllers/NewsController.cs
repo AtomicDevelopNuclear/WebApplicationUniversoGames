@@ -18,28 +18,28 @@ namespace WebApplicationUniversoGames.Controllers
             _ctx = ctx;
         }
 
-        [HttpGet]
-        public IActionResult Index(int page = 1)
-        {
-            ViewBag.PageList = GetPagedNames(page);
-            return View();
-        }
-        protected IPagedList<News> GetPagedNames(int? page)
-        {
-            // return a 404 if user browses to before the first page
-            if (page.HasValue && page < 1)
-                return null;
+        //[HttpGet]
+        //public IActionResult Index(int page = 1)
+        //{
+        //    ViewBag.PageList = GetPagedNames(page);
+        //    return View();
+        //}
+        //protected IPagedList<News> GetPagedNames(int? page)
+        //{
+        //    // return a 404 if user browses to before the first page
+        //    if (page.HasValue && page < 1)
+        //        return null;
 
-            // retrieve list from database
-            var news = _ctx.News.ToList();
-            // page the list
-            const int pageSize = 4;
-            var listPaged = news.ToPagedList(page ?? 1, pageSize);
-            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
-            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
-                return null;
-            return listPaged;
-        }
+        //    // retrieve list from database
+        //    var news = _ctx.News.ToList();
+        //    // page the list
+        //    const int pageSize = 4;
+        //    var listPaged = news.ToPagedList(page ?? 1, pageSize);
+        //    // return a 404 if user browses to pages beyond last page. special case first page if no items exist
+        //    if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
+        //        return null;
+        //    return listPaged;
+        //}
         //GetCreateNews
         public IActionResult Create()
         {
