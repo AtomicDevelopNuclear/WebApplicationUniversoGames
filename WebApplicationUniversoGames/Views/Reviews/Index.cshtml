@@ -34,7 +34,7 @@
                     <div class="col-lg-6">
                         <!-- Blog post-->
                         <div class="card mb-4">
-                            <a><img class="card-img-top" src="@reviews.Image" alt="..." /></a>
+                            <a><img class="card-img-top" src="@("~/image/"+Model.Image)" asp-append-version="true" /></a>
                             <div class="card-body">
                                 <div class="small text-muted">Published on: @reviews.Date</div>
                                 <h2 class="card-title h4">@reviews.Title</h2>

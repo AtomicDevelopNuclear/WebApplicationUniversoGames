@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
 using X.PagedList;
@@ -13,10 +16,12 @@ namespace WebApplicationUniversoGames.Controllers
 
         //Dependence Injection Direttamente nei controller perchè non abbiamo i services
         private readonly DataContext _ctx;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public NewsController(DataContext ctx)
+        public NewsController(DataContext ctx, IWebHostEnvironment hostEnvironment)
         {
             _ctx = ctx;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -50,18 +55,27 @@ namespace WebApplicationUniversoGames.Controllers
 
         //PostFunction
         [HttpPost]
-        public IActionResult Create(News news)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Create([Bind("Id","Title","Category","Content","DateOfPublish", "ImageFile")] News newArticle)
         {
             if (ModelState.IsValid)
             {
-                news.DateOfPublish = DateTime.Now;
-                _ctx.News.Add(news);
-                _ctx.SaveChanges();
-                return Redirect("Index");
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(newArticle.ImageFile.FileName);
+                string extension = Path.GetExtension(newArticle.ImageFile.FileName);
+                newArticle.Image = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await newArticle.ImageFile.CopyToAsync(fileStream);
+                }
+                newArticle.DateOfPublish = DateTime.Now;
+                _ctx.Add(newArticle);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(news);
+            return View(newArticle);
         }
-
         //GetDelete
         public IActionResult Delete(int? id)
         {
