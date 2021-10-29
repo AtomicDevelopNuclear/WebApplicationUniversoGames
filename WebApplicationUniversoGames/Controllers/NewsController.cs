@@ -26,7 +26,7 @@ namespace WebApplicationUniversoGames.Controllers
         }
         protected IPagedList<News> GetPagedNames(int? page)
         {
-            // return a 404 if user browses to before the first page value
+            // return a 404 if user browses to before the first page
             if (page.HasValue && page < 1)
                 return null;
 
