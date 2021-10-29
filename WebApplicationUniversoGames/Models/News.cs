@@ -13,6 +13,5 @@ namespace WebApplicationUniversoGames.Models
         public string Image { get; set; }
         public string Content { get; set; }
         public DateTime DateOfPublish { get; set; }
-        public Admin Admin { get; set; }
     }
 }
