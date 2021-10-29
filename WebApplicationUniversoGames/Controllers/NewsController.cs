@@ -40,6 +40,7 @@ namespace WebApplicationUniversoGames.Controllers
                 return null;
             return listPaged;
         }
+
         //GetCreateNews
         public IActionResult Create()
         {
