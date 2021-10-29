@@ -7,6 +7,7 @@ using X.PagedList;
 
 namespace WebApplicationUniversoGames.Controllers
 {
+    //Comment
     public class NewsController : Controller
     {
 

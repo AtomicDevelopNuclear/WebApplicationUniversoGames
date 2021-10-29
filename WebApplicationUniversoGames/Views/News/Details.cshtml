@@ -1,4 +1,7 @@
-﻿@model WebApplicationUniversoGames.Models.News
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserInManager
+@model WebApplicationUniversoGames.Models.News
 @{
     ViewData["Title"] = "Details";
 }
