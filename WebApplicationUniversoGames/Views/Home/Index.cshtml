@@ -37,7 +37,7 @@
                                 <div class="small text-muted">Published on: @news.DateOfPublish</div>
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
-                                <p class="card-text">Text preview (Try to use whitespace or similar)</p>
+                                <p class="card-text" id="contnews">@news.Content</p>
                                 <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                 <div class="small text-muted">Published on: @review.Date</div>
                                 <h2 class="card-title h4">@review.Title</h2>
                                 <a>Score: @review.Score</a>
-                                <p class="card-text">Text preview (Try to use whitespace or similar)</p>
+                                <p class="card-text" id="contnews">@review.Rev</p>
                                 <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
                             </div>
                         </div>
