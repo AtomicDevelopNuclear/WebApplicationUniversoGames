@@ -1,11 +1,16 @@
 ﻿@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
 @using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
 @using X.PagedList.Mvc.Core.Fluent
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserInManager
+@model Tuple<List<News>, List<Review>>
 @{
     ViewBag.Title = "News | Universo Games";
 }
 
-<br /><br />
+<br />
+<br />
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -16,7 +21,11 @@
                     <div class="small text-muted">@DateTime.Now.ToString("yyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
+                    }
+
                 </div>
             </div>
 
