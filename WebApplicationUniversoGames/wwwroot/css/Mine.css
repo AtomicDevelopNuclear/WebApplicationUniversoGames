@@ -1,4 +1,19 @@
-﻿#contnews {
+﻿#searchbar {
+    width: 50%;
+    position: absolute;
+    margin-left: 0%;
+}
+
+#btnbar {
+    position: absolute;
+    margin-left: 0%;
+}
+
+#datecolor {
+    color: aqua;
+}
+
+#contnews {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -15,7 +30,6 @@ body {
     color: #fff;     
     background-color: #ff1178;     
     border:none;      
-
 } 
 
 .btn-primary:hover {     
