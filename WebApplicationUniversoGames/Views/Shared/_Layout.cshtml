@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/Mine.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="~/js/sj.js"></script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script src="~/js/universo.js"></script>
+
 </head>
 <body>
     <header>
@@ -40,27 +39,25 @@
                     </div>
                 </div>
             </div>
-        <form method="get">
-            <div class="col-md-5 col-12">
-                <div class="form-outline">
-                    <input type="search" id="searchbar" class="form-control" placeholder="Search..." />
-                </div>
-                <button id="btnbar" type="submit" asp-controller="My" asp-action="MyAction" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            </form>
         </nav>
-            <!--<form method="get">
-        <div class="col-md-5 col-12">
-            <div class="form-outline">
-                <input type="search" id="searchbar" class="form-control" placeholder="Search..." />
-            </div>
-            <button id="btnbar" type="submit" asp-controller="My" asp-action="MyAction" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-            </button>
+            <form asp-controller="Home" asp-action="Search" method="get" id="formnewssearch">
+                <div class="input-group mb-3">
+                    <input id="searchbarnews" type="text" name="SearchString" class="form-control" placeholder="Cerca news..." aria-label="Cerca news" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit" id="button-addon2">Cerca</button>
+                    </div>
+                </div>
+            </form>
+        <!--<form method="get">
+    <div class="col-md-5 col-12">
+        <div class="form-outline">
+            <input type="search" id="searchbar" class="form-control" placeholder="Search..." />
         </div>
-        </form>-->
+        <button id="btnbar" type="submit" asp-controller="My" asp-action="MyAction" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button
+    </div>
+    </form>-->
         <!--<center>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

@@ -143,18 +143,5 @@ namespace WebApplicationUniversoGames.Controllers
             }
             return View(newsDetails);
         }
-
-        public async Task<IActionResult> Search(string searchString)
-        {
-            var news = from m in _ctx.News
-                       select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                news = news.Where(s => s.Title.Contains(searchString));
-            }
-
-            return View(await news.ToListAsync());
-        }
     }
 }

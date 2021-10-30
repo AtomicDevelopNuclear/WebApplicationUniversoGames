@@ -56,12 +56,27 @@ h1 {
 
 /*Use inspect element to see classes and use CSS advanced selector to modify pagination*/
 
-.pagination li{
+.pagination li {
     font-size: 1.5rem;
-    color:springgreen;
-    
+    color: springgreen;
+    border: solid 1px;
+    font-size: 1.5em;
+    background-color: magenta;
+    border-radius: 46%;
+    /*padding-left: 1em;
+    padding-right: 1em;*/
+    padding:1em 1em 1em 1em;
 }
 .pagination a {
     color: antiquewhite;
     background-color: magenta;
+}
+
+.pagination-container{
+    margin-left:41%;
+}
+
+#formnewssearch {
+    width: 26%;
+    margin-left: 36%;
 }
