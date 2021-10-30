@@ -13,6 +13,5 @@ namespace WebApplicationUniversoGames.Models
         public string Rev { get; set; }
         public double Score { get; set; }
         public string Image { get; set; }
-        public Admin Admin { get; set; }
     }
 }

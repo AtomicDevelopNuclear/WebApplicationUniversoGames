@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationUniversoGames.Data;
 
 namespace WebApplicationUniversoGames.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211029190021_changedImageTypeToNews")]
+    partial class changedImageTypeToNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,8 +226,8 @@ namespace WebApplicationUniversoGames.Migrations
                     b.Property<DateTime>("DateOfPublish")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("longtext");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("longblob");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext");

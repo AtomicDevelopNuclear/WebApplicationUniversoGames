@@ -1,8 +1,24 @@
-﻿#contnews {
+﻿#searchbar {
+    width: 50%;
+    position: absolute;
+    margin-left: 0%;
+}
+
+#btnbar {
+    position: absolute;
+    margin-left: 0%;
+}
+
+#datecolor {
+    color: aqua;
+}
+
+#contnews {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
+
 body {
     background-image: url("https://images.everyeye.it/img-notizie/quanta-materia-c-e-nell-universo-risposta-precisa-sempre-v3-471745-1280x720.jpg%22");
     background-size:cover;     
@@ -15,7 +31,6 @@ body {
     color: #fff;     
     background-color: #ff1178;     
     border:none;      
-
 } 
 
 .btn-primary:hover {     

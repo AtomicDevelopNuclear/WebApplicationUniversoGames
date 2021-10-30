@@ -1,8 +1,12 @@
-﻿@model Tuple<List<News>, List<Review>>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserInManager
+@model Tuple<List<News>, List<Review>>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "HomePage | Universo Games";
 }
 
+<br /><br />
 <!-- Page content-->
 <div class="container">
     <div class="row">
@@ -11,46 +15,51 @@
             <div class="card mb-4">
                 <a href="#!"><img class="card-img-top" src="https://www.telefilm-central.org/wp-content/uploads/2019/05/cleganebowl-game-of-thrones-1.jpg" alt="..." /></a>
                 <div class="card-body">
-                    <div class="small text-muted">@DateTime.Now.ToString("yyy-MM-dd")</div>
+                    <div id="datecolor">@DateTime.Now.ToString("yyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
+                    }
+
                 </div>
             </div>
-            <!-- Blog entries-->
-            @foreach (var news in Model.Item1)
-            {
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a><img class="card-img-top" src="@news.Image" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">Published on: @news.DateOfPublish</div>
-                            <h2 class="card-title h4">@news.Title</h2>
-                            <a>Category: @news.Category</a>
-                            <p class="card-text">Text preview (Try to use whitespace or similar)</p>
-                            <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
+            <div class="row">
+                <!-- Blog entries-->
+                @foreach (var news in Model.Item1)
+                {
+                    <div class="col-lg-6">
+                        <!-- Blog post-->
+                        <div class="card mb-4">
+                            <a><img class="card-img-top" src="@news.Image" alt="..." /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">Published on: @news.DateOfPublish</div>
+                                <h2 class="card-title h4">@news.Title</h2>
+                                <a>Category: @news.Category</a>
+                                <p class="card-text" id="contnews">@news.Content</p>
+                                <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-            @foreach (var review in Model.Item2)
-            {
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <a><img class="card-img-top" src="@review.Image" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">Published on: @review.Date</div>
-                            <h2 class="card-title h4">@review.Title</h2>
-                            <a>Score: @review.Score</a>
-                            <p class="card-text">Text preview (Try to use whitespace or similar)</p>
-                            <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
+                }
+                @foreach (var review in Model.Item2)
+                {
+                    <div class="col-lg-6">
+                        <!-- Blog post-->
+                        <div class="card mb-4">
+                            <a><img class="card-img-top" src="@review.Image" alt="..." /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">Published on: @review.Date</div>
+                                <h2 class="card-title h4">@review.Title</h2>
+                                <a>Score: @review.Score</a>
+                                <p class="card-text" id="contnews">@review.Rev</p>
+                                <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-
+                }
+            </div>
         </div>
         <!-- Pagination-->
         <nav aria-label="Pagination">
@@ -65,6 +74,5 @@
                 <li class="page-item"><a class="page-link" href="#!">Older</a></li>
             </ul>
         </nav>
-    </div>
     </div>
 </div>
