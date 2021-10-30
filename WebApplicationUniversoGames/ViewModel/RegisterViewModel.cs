@@ -9,6 +9,9 @@ namespace WebApplicationUniversoGames.ViewModel
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(20, MinimumLength = 2)]
+        public string UserName { get; set; }
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
         [Required]

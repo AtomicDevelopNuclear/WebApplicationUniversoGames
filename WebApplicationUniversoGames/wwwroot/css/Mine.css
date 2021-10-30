@@ -20,7 +20,7 @@
 }
 
 body {
-    background-image: url("https://images.everyeye.it/img-notizie/quanta-materia-c-e-nell-universo-risposta-precisa-sempre-v3-471745-1280x720.jpg%22");
+    background-image: url("../Image/background.jpg");
     background-size:cover;     
     background-position:center;     
     background-repeat: no-repeat;     
@@ -51,7 +51,7 @@ h1 {
     height:100px !important;
 } 
 .card {     
-    background-color: rgba(255, 255, 255, 0.2) !important; 
+    background-color: rgba(0, 0, 0, 0.8) !important; 
 }
 
 /*Use inspect element to see classes and use CSS advanced selector to modify pagination*/
