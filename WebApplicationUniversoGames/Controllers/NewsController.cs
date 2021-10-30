@@ -32,7 +32,6 @@ namespace WebApplicationUniversoGames.Controllers
         }
         protected IPagedList<News> GetPagedNames(int? page)
         {
-            // return a 404 if user browses to before the first page
             if (page.HasValue && page < 1)
                 return null;
 
@@ -143,6 +142,19 @@ namespace WebApplicationUniversoGames.Controllers
                 return NotFound();
             }
             return View(newsDetails);
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var news = from m in _ctx.News
+                       select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                news = news.Where(s => s.Title.Contains(searchString));
+            }
+
+            return View(await news.ToListAsync());
         }
     }
 }

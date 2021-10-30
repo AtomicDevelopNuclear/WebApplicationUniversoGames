@@ -35,7 +35,7 @@
                             <li class="nav-item">
                                 <a class="nav-link active" style="color: #ff911a;" aria-current="page" asp-action="Index" asp-controller="Reviews">REVIEWS</a>
                             </li>
-                           <partial name="_LoginPartial"/>
+                            <partial name="_LoginPartial" />
                         </ul>
                     </div>
                 </div>
@@ -51,33 +51,49 @@
             </div>
             </form>
         </nav>
-        <!--
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplicationUniversoGames</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">News</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a>
-                        </li>
-                    </ul>
-                </div>
+            <!--<form method="get">
+        <div class="col-md-5 col-12">
+            <div class="form-outline">
+                <input type="search" id="searchbar" class="form-control" placeholder="Search..." />
             </div>
-        </nav>
-            -->
+            <button id="btnbar" type="submit" asp-controller="My" asp-action="MyAction" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        </form>-->
+        <!--<center>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button asp-controller="Home" asp-action="Search" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </center>-->
+        <!--
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplicationUniversoGames</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">News</a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Reviews" asp-action="Index">Reviews</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+        -->
     </header>
     <div class="container">
         <main role="main" class="pb-3">
