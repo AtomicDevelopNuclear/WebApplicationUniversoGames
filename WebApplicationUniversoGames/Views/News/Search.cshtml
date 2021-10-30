@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WebApplicationUniversoGames.Models.News>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var news in Model)
+{
+    <div class="col-lg-6">
+        <!-- Blog post-->
+        <div class="card mb-4">
+            <a><img class="card-img-top" src="@news.Image" alt="..." /></a>
+            <div class="card-body">
+                <div class="small text-muted">Published on: @news.DateOfPublish</div>
+                <h2 class="card-title h4">@news.Title</h2>
+                <a>Category: @news.Category</a>
+                <p class="card-text" id="contnews">@news.Content</p>
+                <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
+            </div>
+        </div>
+    </div>
+}

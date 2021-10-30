@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
 using X.PagedList;
@@ -127,6 +128,19 @@ namespace WebApplicationUniversoGames.Controllers
                 return NotFound();
             }
             return View(newsDetails);
+        }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            var news = from m in _ctx.News
+                       select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                news = news.Where(s => s.Title.Contains(searchString));
+            }
+
+            return View(await news.ToListAsync());
         }
     }
 }
