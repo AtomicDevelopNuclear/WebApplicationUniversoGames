@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
+using X.PagedList;
 
 namespace WebApplicationUniversoGames.Controllers
 {
@@ -25,12 +26,43 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return _ctx.Reviews.ToList();
         }
-        public IActionResult Index(int? page)
+        
+        
+        public IActionResult Index(int page = 1)
         {
-            var customModel = new Tuple<List<News>, List<Review>>(GetAllNews(), GetAllReviews());
-            return View(customModel);
+            ViewBag.News = GetAllNews();
+            ViewBag.Reviews = GetAllReviews();
+            ViewBag.PageList = GetPagedNames(page);
+            return View();
+        }
+        protected IPagedList<dynamic> GetPagedNames(int? page)
+        {
+            // return a 404 if user browses to before the first page
+            if (page.HasValue && page < 1)
+                return null;
+            List<dynamic> AllData = new List<dynamic>();
+            // retrieve list from database
+            var news = _ctx.News.ToList();
+            var reviews = _ctx.Reviews.ToList();
+            foreach(var a in news)
+            {
+                AllData.Add(a);
+            }
+            foreach(var r in reviews)
+            {
+                AllData.Add(r);
+            }
+            AllData.OrderByDescending(el => el.Date);
+            // page the list
+            const int pageSize = 4;
+            var listPaged = AllData.ToPagedList(page ?? 1, pageSize);
+            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
+            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
+                return null;
+            return listPaged;
         }
 
+        
         public IActionResult Privacy()
         {
             return View();

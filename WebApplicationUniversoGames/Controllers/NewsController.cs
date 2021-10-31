@@ -56,19 +56,15 @@ namespace WebApplicationUniversoGames.Controllers
         //PostFunction
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Create([Bind("Id","Title","Category","Content","DateOfPublish", "ImageFile")] News newArticle)
+        public async Task<IActionResult>Create( News newArticle)
         {
             if (ModelState.IsValid)
             {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                string fileName = Path.GetFileNameWithoutExtension(newArticle.ImageFile.FileName);
-                string extension = Path.GetExtension(newArticle.ImageFile.FileName);
-                newArticle.Image = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(wwwRootPath + "/image/", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await newArticle.ImageFile.CopyToAsync(fileStream);
-                }
+                string folder = "News/Image";
+                folder += Guid.NewGuid().ToString() + "_" + newArticle.ImageFile.FileName;
+                newArticle.Image = folder;
+                string serverfolder = Path.Combine(_hostEnvironment.WebRootPath, folder);
+                await newArticle.ImageFile.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
                 newArticle.DateOfPublish = DateTime.Now;
                 _ctx.Add(newArticle);
                 await _ctx.SaveChangesAsync();
