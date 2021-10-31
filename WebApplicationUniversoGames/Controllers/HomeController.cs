@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
+using X.PagedList;
 
 namespace WebApplicationUniversoGames.Controllers
 {
