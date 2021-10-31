@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
 using X.PagedList;
@@ -10,10 +13,12 @@ namespace WebApplicationUniversoGames.Controllers
     public class ReviewsController : Controller
     {
         private readonly DataContext _ctx;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public ReviewsController(DataContext ctx)
+        public ReviewsController(DataContext ctx, IWebHostEnvironment hostEnvironment)
         {
             _ctx = ctx;
+            _hostEnvironment = hostEnvironment;
         }
 
         // vecchia funzione per richiamare le news
@@ -50,17 +55,20 @@ namespace WebApplicationUniversoGames.Controllers
             return View();
         }
 
+        
         [HttpPost]
-        public IActionResult Create(Review review)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Review newArticle)
         {
-            if (ModelState.IsValid)
-            {
-                review.Date = DateTime.Now;
-                _ctx.Reviews.Add(review);
-                _ctx.SaveChanges();
-                return Redirect("Index");
-            }
-            return View(review);
+                string folder = "ReviewsImages/CoverImage";
+                folder += Guid.NewGuid().ToString() + "_" + newArticle.CoverImageFile.FileName;
+                newArticle.CoverImage = folder;
+                string serverfolder = Path.Combine(_hostEnvironment.WebRootPath, folder);
+                await newArticle.CoverImageFile.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
+                newArticle.Date = DateTime.Now;
+                _ctx.Add(newArticle);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Delete(int? id)

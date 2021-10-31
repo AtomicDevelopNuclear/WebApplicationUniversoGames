@@ -21,7 +21,7 @@ namespace WebApplicationUniversoGames.Models
         [Required]
         [StringLength(2000, MinimumLength = 50)]
         public string Content { get; set; }
-        public DateTime DateOfPublish { get; set; }
+        public DateTime Date { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
     }

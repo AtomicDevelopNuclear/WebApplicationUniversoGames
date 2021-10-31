@@ -56,21 +56,17 @@ namespace WebApplicationUniversoGames.Controllers
         //PostFunction
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Create( News newArticle)
+        public async Task<IActionResult>Create(News newArticle)
         {
-            if (ModelState.IsValid)
-            {
                 string folder = "News/Image";
                 folder += Guid.NewGuid().ToString() + "_" + newArticle.ImageFile.FileName;
                 newArticle.Image = folder;
                 string serverfolder = Path.Combine(_hostEnvironment.WebRootPath, folder);
                 await newArticle.ImageFile.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
-                newArticle.DateOfPublish = DateTime.Now;
+                newArticle.Date = DateTime.Now;
                 _ctx.Add(newArticle);
                 await _ctx.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(newArticle);
         }
         //GetDelete
         public IActionResult Delete(int? id)

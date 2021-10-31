@@ -12,16 +12,16 @@
         <input asp-for="Title" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="Rev" class="form-label">Revisione</label>
-        <input asp-for="Rev" class="form-control" />
+        <label asp-for="Content" class="form-label">Content</label>
+        <textarea asp-for="Content" class="form-control" rows="10" disabled></textarea>
     </div>
     <div class="mb-3">
         <label asp-for="Score" class="form-label">Score</label>
         <input asp-for="Score" class="form-control" />
     </div>
     <div class="mb-3">
-        <label asp-for="Image" class="form-label">Immagine</label>
-        <input asp-for="Image" class="form-control" />
+        <label asp-for="CoverImageFile" class="form-label">Immagine</label>
+        <input asp-for="CoverImageFile" class="form-control" accept="image/*"/>
     </div>
     <input asp-for="Date" hidden />
     <div class="form-group row">

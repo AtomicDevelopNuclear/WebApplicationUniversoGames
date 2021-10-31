@@ -25,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\News\Image\" />
+    <Folder Include="wwwroot\ReviewsImages\CoverImage\" />
+    <Folder Include="wwwroot\ReviewsImages\GalleryImages\" />
   </ItemGroup>
 
 </Project>

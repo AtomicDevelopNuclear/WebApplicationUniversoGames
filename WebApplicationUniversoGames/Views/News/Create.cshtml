@@ -8,22 +8,26 @@
             <div asp-validation-summary="ModelOnly">
                 </div>
     *@
-<form method="post" asp-action="Create" class="customForm" enctype="multipart/form-data">
+<form method="post" asp-action="Create" asp-controller="News" class="customForm" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control" id="" placeholder="Inserisci Titolo...">
+        <span asp-validation-for="Title"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control" id="" placeholder="Inserisci Categoria...">
+        <input asp-for="Category" class="form-control" id="" placeholder="Inserisci Titolo...">
+        <span asp-validation-for="Category"></span>
     </div>
     <div class="mb-3">
         <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" accept="image/*">
+        <input asp-for="ImageFile" type="file" class="form-control-file" >
+        <span asp-validation-for="ImageFile"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>
         <textarea asp-for="Content" class="form-control" id="" rows="10"></textarea>
+        <span asp-validation-for="Content"></span>
     </div>
     <div class="form-group row">
         <div class="col">
@@ -31,5 +35,4 @@
             <a asp-action="Index" class="btn btn-outline-info" width="65">Indietro</a>
         </div>
     </div>
-
 </form>
