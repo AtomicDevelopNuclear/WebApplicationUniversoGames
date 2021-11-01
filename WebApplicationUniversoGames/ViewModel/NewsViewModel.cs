@@ -1,24 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Enums;
 
-namespace WebApplicationUniversoGames.Models
+namespace WebApplicationUniversoGames.ViewModel
 {
-    public class News
+    public class NewsViewModel : EditImageViewModel
     {
-        public int Id { get; set; }
         [Required]
         [StringLength(200, MinimumLength = 2)]
         public string Title { get; set; }
         [Required]
         public Categories Category { get; set; }
-        [Required]
-        public string Image { get; set; }
         [Required]
         [StringLength(2000, MinimumLength = 50)]
         public string Content { get; set; }

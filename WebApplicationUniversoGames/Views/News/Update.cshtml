@@ -1,10 +1,10 @@
-﻿@model WebApplicationUniversoGames.Models.News
+﻿@model WebApplicationUniversoGames.ViewModel.NewsViewModel
 @{
     ViewData["Title"] = "Update News";
 }
 
 <h1>Update News Su @Model.Title?</h1>
-<form asp-action="Update" method="post" class="customForm">
+<form asp-action="Update" class="customForm" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
@@ -14,9 +14,10 @@
         <label asp-for="Category" class="form-label">Category</label>
         <input asp-for="Category" class="form-control">
     </div>
-    <div class="mb-3">
-        <label asp-for="ImageFile" class="form-label">Image</label>
-        <input asp-for="ImageFile" class="form-control">
+    <div class="custom-file mb-3">
+        <label asp-for="NewsImage" class="control-label">Choose a file</label>
+        <input asp-for="NewsImage" class="form-control-file">
+        <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>

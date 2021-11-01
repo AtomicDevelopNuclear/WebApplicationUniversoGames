@@ -1,17 +1,14 @@
 ﻿@using WebApplicationUniversoGames.Enums
-@model WebApplicationUniversoGames.Models.News
+@model WebApplicationUniversoGames.ViewModel.NewsViewModel
 @{
     ViewData["Title"] = "Create News";
 }
 
 <h1>Create - News</h1>
-@*
-    <div asp-validation-summary="ModelOnly">
-        </div>
-*@
+
 <form method="post" asp-action="Create" asp-controller="News" class="customForm" enctype="multipart/form-data">
     <div class="mb-3">
-        <label asp-for="Title" class="form-label">Title</label>
+        <label asp-for="Title" class="control-label">Title</label>
         <input asp-for="Title" class="form-control" id="" placeholder="Inserisci Titolo...">
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
@@ -23,9 +20,11 @@
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" type="file" class="form-control-file">
-        <span asp-validation-for="ImageFile" class="text-danger"></span>
+        <div class="custom-file">
+            <label asp-for="NewsImage" class="control-label">Please choose a file</label>
+            <input asp-for="NewsImage" type="file" class="form-control-file">
+        </div>
+        <span asp-validation-for="NewsImage" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserInManager
-@if (SignInManager.IsSignedIn(User))
+@if(SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Hi @User.Identity.Name</a>

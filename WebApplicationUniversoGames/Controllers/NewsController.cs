@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
+using WebApplicationUniversoGames.ViewModel;
 using X.PagedList;
 
 namespace WebApplicationUniversoGames.Controllers
@@ -46,7 +48,29 @@ namespace WebApplicationUniversoGames.Controllers
                 return null;
             return listPaged;
         }
-
+        //httpget to view Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null || id == 0)
+            {
+                return NotFound();
+            }
+            var newsDetails = await _ctx.News.FirstOrDefaultAsync(n => n.Id == id);
+            var newsViewModel = new NewsViewModel()
+            {
+                Id = newsDetails.Id,
+                Title = newsDetails.Title,
+                Category = newsDetails.Category,
+                ExistingImage = newsDetails.Image,
+                Content = newsDetails.Content,
+                Date = newsDetails.Date
+            };
+            if (newsDetails is null)
+            {
+                return NotFound();
+            }
+            return View(newsDetails);
+        }
         //GetCreateNews
         public IActionResult Create()
         {
@@ -56,85 +80,134 @@ namespace WebApplicationUniversoGames.Controllers
         //PostFunction
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult>Create(News newArticle)
-        {
-                string folder = "News/Image";
-                folder += Guid.NewGuid().ToString() + "_" + newArticle.ImageFile.FileName;
-                newArticle.Image = folder;
-                string serverfolder = Path.Combine(_hostEnvironment.WebRootPath, folder);
-                await newArticle.ImageFile.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
-                newArticle.Date = DateTime.Now;
-                _ctx.Add(newArticle);
-                await _ctx.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-        }
-        //GetDelete
-        public IActionResult Delete(int? id)
-        {
-            if (id is null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _ctx.News.Find(id);
-            if (obj is null)
-            {
-                return NotFound();
-            }
-            return View(obj);
-        }
-
-        [HttpPost]
-        public IActionResult DeleteNews(int? id)
-        {
-            var obj = _ctx.News.Find(id);
-            if (obj is null)
-            {
-                return NotFound();
-            }
-            _ctx.News.Remove(obj);
-            _ctx.SaveChanges();
-            return Redirect("Index");
-        }
-
-        //GetUpdate
-        public IActionResult Update(int? id)
-        {
-            if (id is null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _ctx.News.Find(id);
-            if (obj is null)
-            {
-                return NotFound();
-            }
-            return View(obj);
-        }
-
-        [HttpPost]
-        public IActionResult Update(News news)
+        public async Task<IActionResult>Create(NewsViewModel newArticle)
         {
             if (ModelState.IsValid)
             {
-                _ctx.News.Update(news);
-                _ctx.SaveChanges();
-                return RedirectToAction("Index");
+                string uniqueFileName = ProcessUploadedFile(newArticle);
+                News newNews = new News()
+                {
+                    Id = newArticle.Id,
+                    Title = newArticle.Title,
+                    Category = newArticle.Category,
+                    Image = uniqueFileName,
+                    Content = newArticle.Content,
+                    Date = newArticle.Date
+                };
+                _ctx.Add(newNews);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(news);
+            return View(newArticle);
         }
-        //httpget to view Details
-        public IActionResult Details(int? id)
+
+        public async Task<IActionResult>Update(int? id)
         {
-            if(id is null || id == 0)
+            if(id is null)
             {
                 return NotFound();
             }
-            var newsDetails = _ctx.News.Find(id);
-            if(newsDetails is null)
+            var article = await _ctx.News.FindAsync(id);
+            var newsViewModel = new NewsViewModel()
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Category = article.Category,
+                ExistingImage = article.Image,
+                Content = article.Content,
+                Date = article.Date
+            };
+            if(article is null)
             {
                 return NotFound();
             }
-            return View(newsDetails);
+            return View(newsViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Update(int id, NewsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var newArticle = await _ctx.News.FindAsync(model.Id);
+                newArticle.Title = model.Title;
+                newArticle.Category = model.Category;
+                newArticle.Content = model.Content;
+                if(model.NewsImage != null)
+                {
+                    if(model.ExistingImage != null)
+                    {
+                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "Uploads", model.ExistingImage);
+                        System.IO.File.Delete(filePath);
+                    }
+                    newArticle.Image = ProcessUploadedFile(model);
+                }
+                _ctx.Update(newArticle);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+        //GetDelete
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id is null)
+            {
+                return NotFound();
+            }
+            var news = await _ctx.News.FirstOrDefaultAsync(n => n.Id == id);
+            var newsViewModel = new NewsViewModel()
+            {
+                Id = news.Id,
+                Title = news.Title,
+                Category = news.Category,
+                Content = news.Content,
+                ExistingImage = news.Image
+            };
+            if(news is null)
+            {
+                return NotFound();
+            }
+            return View(newsViewModel);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>DeleteConfirmed(int id)
+        {
+            var news = await _ctx.News.FindAsync(id);
+            var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", news.Image);
+            _ctx.News.Remove(news);
+            if(await _ctx.SaveChangesAsync() > 0)
+            {
+                if (System.IO.File.Exists(CurrentImage))
+                {
+                    System.IO.File.Delete(CurrentImage);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool NewsExists(int id)
+        {
+            return _ctx.News.Any(n => n.Id == id);
+        }
+
+        private string ProcessUploadedFile(NewsViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.NewsImage != null)
+            {
+                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "Uploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.NewsImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.NewsImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

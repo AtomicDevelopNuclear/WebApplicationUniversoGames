@@ -28,6 +28,7 @@
     <Folder Include="wwwroot\News\Image\" />
     <Folder Include="wwwroot\ReviewsImages\CoverImage\" />
     <Folder Include="wwwroot\ReviewsImages\GalleryImages\" />
+    <Folder Include="wwwroot\WebSiteImages\" />
   </ItemGroup>
 
 </Project>
