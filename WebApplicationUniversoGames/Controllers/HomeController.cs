@@ -27,7 +27,7 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return _ctx.Reviews.ToList();
         }
-
+        
         public IActionResult Index(int page = 1)
         {
             dynamic allData = new ExpandoObject();
@@ -53,8 +53,8 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 AllData.Add(r);
             }
-            // page the list
-            const int pageSize = 4;
+        // page the list
+        const int pageSize = 4;
             var listPaged = AllData.ToPagedList(page ?? 1, pageSize);
             // return a 404 if user browses to pages beyond last page. special case first page if no items exist
             if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)

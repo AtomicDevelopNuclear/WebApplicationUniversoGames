@@ -1,10 +1,9 @@
 ﻿@using WebApplicationUniversoGames.Enums
 @model WebApplicationUniversoGames.ViewModel.ReviewsViewModel
 @{
-    ViewData["Title"] = "Update Reviews";
+    ViewData["Title"] = "Update";
 }
 
-<h1>Update Review on @Model.Title ?</h1>
 <!-- asp-action si riferisce all'update del controller, in questo caso il button'-->
 <form asp-action="Update" class="customForm" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
@@ -19,13 +18,13 @@
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>
-        <textarea asp-for="Content" class="form-control" rows="10" disabled></textarea>
+        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
     </div>
     <div class="mb-3">
         <label asp-for="Score" class="form-label">Score</label>
         <input asp-for="Score" class="form-control" />
     </div>
-    <div class="mb-5">
+    <div class="custom-file mb-5">
         <label asp-for="UploadedImage" class="control-label">Choose a file</label>
         <input asp-for="UploadedImage" class="form-control-file">
         <img src="@ReviewsFileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />

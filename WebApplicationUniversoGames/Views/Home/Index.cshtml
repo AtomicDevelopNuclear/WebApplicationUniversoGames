@@ -24,7 +24,6 @@
                     {
                         <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
                     }
-
                 </div>
             </div>
             <div class="row">
@@ -56,7 +55,7 @@
                                 <h2 class="card-title h4">@review.Title</h2>
                                 <a>Score: @review.Score  <i class="fas fa-star text-warning"></i></a>
                                 <p class="card-text" id="contnews">@review.Category</p>
-                                <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
+                                <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
                             </div>
                         </div>
                     </div>
