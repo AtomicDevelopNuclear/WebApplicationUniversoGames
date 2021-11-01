@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserInManager
+@model dynamic
 @{
     ViewData["Title"] = "HomePage | Universo Games";
 }
@@ -30,7 +31,7 @@
             </div>
             <div class="row">
                 <!-- Blog entries-->
-                @foreach (var news in ViewBag.News)
+                @foreach (News news in Model.News)
                 {
                     <div class="col-lg-6">
                         <!-- Blog post-->
@@ -46,7 +47,7 @@
                         </div>
                     </div>
                 }
-                @foreach (var review in ViewBag.Reviews)
+                @foreach (Review review in Model.Reviews)
                 {
                     <div class="col-lg-6">
                         <!-- Blog post-->
@@ -56,7 +57,7 @@
                                 <div class="small text-muted">Published on: @review.Date</div>
                                 <h2 class="card-title h4">@review.Title</h2>
                                 <a>Score: @review.Score</a>
-                                <p class="card-text" id="contnews">@review.Rev</p>
+                                <p class="card-text" id="contnews">@review.Category</p>
                                 <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
                             </div>
                         </div>

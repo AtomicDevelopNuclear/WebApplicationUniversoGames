@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
@@ -30,10 +31,11 @@ namespace WebApplicationUniversoGames.Controllers
         
         public IActionResult Index(int page = 1)
         {
-            ViewBag.News = GetAllNews();
-            ViewBag.Reviews = GetAllReviews();
+            dynamic allData = new ExpandoObject();
+            allData.News = GetAllNews();
+            allData.Reviews = GetAllReviews();
             ViewBag.PageList = GetPagedNames(page);
-            return View();
+            return View(allData);
         }
         protected IPagedList<dynamic> GetPagedNames(int? page)
         {
