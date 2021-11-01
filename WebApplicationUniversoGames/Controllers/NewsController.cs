@@ -25,7 +25,7 @@ namespace WebApplicationUniversoGames.Controllers
             _ctx = ctx;
             _hostEnvironment = hostEnvironment;
         }
-
+        /*
         [HttpGet]
         public IActionResult Index(int page = 1)
         {
@@ -47,6 +47,22 @@ namespace WebApplicationUniversoGames.Controllers
             if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
                 return null;
             return listPaged;
+        }
+        */
+        public async Task<IActionResult>Index(string searchedString, int? pageNumber)
+        {
+            ViewData["CurrentFilter"] = searchedString;
+            if(searchedString != null)
+            {
+                pageNumber = 1;
+            }
+            var news = from n in _ctx.News select n;
+            if (!String.IsNullOrEmpty(searchedString))
+            {
+                news = news.Where(s => s.Title.Contains(searchedString) || s.Content.Contains(searchedString));
+            }
+            int pageSize = 4;
+            return View(await PaginatedList<News>.CreateAsync(news.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         //httpget to view Details
         public async Task<IActionResult> Details(int? id)

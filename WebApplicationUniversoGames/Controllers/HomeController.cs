@@ -27,8 +27,7 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return _ctx.Reviews.ToList();
         }
-        
-        
+
         public IActionResult Index(int page = 1)
         {
             dynamic allData = new ExpandoObject();
@@ -54,7 +53,6 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 AllData.Add(r);
             }
-            AllData.OrderByDescending(el => el.Date);
             // page the list
             const int pageSize = 4;
             var listPaged = AllData.ToPagedList(page ?? 1, pageSize);
@@ -63,7 +61,6 @@ namespace WebApplicationUniversoGames.Controllers
                 return null;
             return listPaged;
         }
-
         
         public IActionResult Privacy()
         {

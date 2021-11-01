@@ -1,9 +1,7 @@
-﻿@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
-@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
-@using X.PagedList.Mvc.Core.Fluent
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserInManager
+@model PaginatedList<WebApplicationUniversoGames.Models.News>
 @{
     ViewBag.Title = "News | Universo Games";
 }
@@ -29,15 +27,26 @@
             </div>
 
             <div class="row">
+                <div class="col-12">
+                    <form asp-action="Index" method="get">
+                        <div class="form-actions no-color">
+                            <p>
+                                Search: <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" />
+                                <input type="submit" value="Search" class="btn btn-default" /> |
+                                <a asp-action="Index">Back to Full List</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
 
-                @foreach (var news in ViewBag.PageList)
+                @foreach (var news in Model)
                 {
                     <div class="col-lg-6">
                         <!-- Blog post-->
                         <div class="card mb-4">
                             <a><img class="card-img-top" src="@NewsFileLocation.RetriveFileFromFolder@news.Image" asp-append-version="true" height="300" width="700" /></a>
                             <div class="card-body">
-                                <div class="small text-muted">Published on: @news.Date</div>
+                                <div class="small text-muted">Published on: @news.Date.ToString("yyyy-MM-dd")</div>
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
                                 <p class="card-text" id="contnews">@news.Content</p>
@@ -49,6 +58,24 @@
 
             </div>
         </div>
+        <div class="col-12 text-center">
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-outline-light w-25 @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn btn-outline-light w-25 @nextDisabled">
+                Next
+            </a>
+        </div>
     </div>
-    @Html.PagedListPager((IPagedList)ViewBag.PageList, page => Url.Action("Index", new { page }))
 </div>

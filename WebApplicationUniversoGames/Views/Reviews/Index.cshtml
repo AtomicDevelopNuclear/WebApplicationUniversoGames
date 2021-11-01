@@ -1,9 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserInManager
-@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
-@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
-@using X.PagedList.Mvc.Core.Fluent
+@model PaginatedList<WebApplicationUniversoGames.Models.Review>
 @{
     ViewBag.Title = "Reviews | Universo Games";
 }
@@ -17,7 +15,7 @@
             <div class="card mb-4">
                 <a href="#!"><img class="card-img-top" src="https://www.telefilm-central.org/wp-content/uploads/2019/05/cleganebowl-game-of-thrones-1.jpg" alt="..." /></a>
                 <div class="card-body">
-                    <div class="small text-muted">@DateTime.Now.ToString("yyy-MM-dd")</div>
+                    <div class="small text-muted">@DateTime.Now.ToString("yyyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                     @if (SignInManager.IsSignedIn(User))
@@ -28,25 +26,55 @@
             </div>
 
             <div class="row">
+                <div class="col-12">
+                    <form asp-action="Index" method="get">
+                        <div class="form-actions no-color">
+                            <p>
+                                Search: <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" />
+                                <input type="submit" value="Search" class="btn btn-default" /> |
+                                <a asp-action="Index">Back to Full List</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
 
-                @foreach (var reviews in ViewBag.PageList)
+                @foreach (var review in Model)
                 {
                     <div class="col-lg-6">
                         <!-- Blog post-->
                         <div class="card mb-4">
-                            <a><img class="card-img-top" src="@ReviewsFileLocation.RetriveFileFromFolder@reviews.CoverImage" asp-append-version="true" /></a>
+                            <a><img class="card-img-top" src="@ReviewsFileLocation.RetriveFileFromFolder@review.CoverImage" asp-append-version="true" /></a>
                             <div class="card-body">
-                                <div class="small text-muted">Published on: @reviews.Date</div>
-                                <h2 class="card-title h4">@reviews.Title</h2>
-                                <p class="card-text" id="">@reviews.Content</p>
-                                <p class="card-text" id="">@reviews.Score</p>
-                                <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@reviews.Id">Read More</a>
+                                <div class="small text-muted">Published on: @review.Date.ToString("yyyy-MM-dd")</div>
+                                <h2 class="card-title h4">@review.Title</h2>
+                                <p class="card-text" id="">@review.Content</p>
+                                <p class="card-text text-right" id="">@review.Score <i class="fas fa-star text-warning"></i></p>
+                                <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
                             </div>
                         </div>
                     </div>
                 }
+                <div class="col-12 text-center">
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+
+                    <a asp-action="Index"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-outline-light w-25 @prevDisabled">
+                        Previous
+                    </a>
+                    <a asp-action="Index"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-outline-light w-25 @nextDisabled">
+                        Next
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    @Html.PagedListPager((IPagedList)ViewBag.PageList, page => Url.Action("Index", new { page }))
+   
 </div>

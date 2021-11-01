@@ -28,7 +28,7 @@ namespace WebApplicationUniversoGames.Controllers
         //{
         //    return View(_ctx.Reviews);
         //}
-
+        /*
         [HttpGet]
         public IActionResult Index(int page = 1)
         {
@@ -51,7 +51,22 @@ namespace WebApplicationUniversoGames.Controllers
                 return null;
             return listPaged;
         }
-
+        */
+        public async Task<IActionResult> Index(string searchedString, int? pageNumber)
+        {
+            ViewData["CurrentFilter"] = searchedString;
+            if (searchedString != null)
+            {
+                pageNumber = 1;
+            }
+            var reviews = from n in _ctx.Reviews select n;
+            if (!String.IsNullOrEmpty(searchedString))
+            {
+                reviews = reviews.Where(s => s.Title.Contains(searchedString) || s.Content.Contains(searchedString));
+            }
+            int pageSize = 4;
+            return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id is null || id == 0)
