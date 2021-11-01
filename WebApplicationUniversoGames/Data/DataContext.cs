@@ -19,6 +19,14 @@ namespace WebApplicationUniversoGames.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder
+            .Entity<News>()
+            .Property(e => e.Category)
+            .HasConversion<string>();
+            modelBuilder
+            .Entity<Review>()
+            .Property(e => e.Category)
+            .HasConversion<string>();
         }
 
         public DbSet<News> News { get; set; }

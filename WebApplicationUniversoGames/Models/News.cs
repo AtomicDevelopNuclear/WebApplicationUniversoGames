@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationUniversoGames.Enums;
 
 namespace WebApplicationUniversoGames.Models
 {
@@ -15,7 +16,7 @@ namespace WebApplicationUniversoGames.Models
         [StringLength(200, MinimumLength = 2)]
         public string Title { get; set; }
         [Required]
-        public string Category { get; set; }
+        public Categories Category { get; set; }
         [Required]
         public string Image { get; set; }
         [Required]
@@ -24,5 +25,6 @@ namespace WebApplicationUniversoGames.Models
         public DateTime Date { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        
     }
 }

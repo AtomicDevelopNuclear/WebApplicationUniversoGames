@@ -20,12 +20,13 @@
 }
 
 body {
-    background-image: url("../Image/background.jpg");
-    background-size:cover;     
-    background-position:center;     
-    background-repeat: no-repeat;     
-    background-attachment: fixed;     
-    height:100vh; } 
+    background-image: url("https://cdn2.softswiss.net/n1casino/b/quickfire/MGS_RetroGalaxy.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+} 
 
 .btn-primary {     
     color: #fff;     
@@ -51,7 +52,8 @@ h1 {
     height:100px !important;
 } 
 .card {     
-    background-color: rgba(0, 0, 0, 0.8) !important; 
+    background-color: rgba(0, 0, 0, 0.6) !important; 
+    color: whitesmoke;
 }
 
 /*Use inspect element to see classes and use CSS advanced selector to modify pagination*/
@@ -59,7 +61,6 @@ h1 {
 .pagination li{
     font-size: 1.5rem;
     color:springgreen;
-    
 }
 .pagination a {
     color: antiquewhite;

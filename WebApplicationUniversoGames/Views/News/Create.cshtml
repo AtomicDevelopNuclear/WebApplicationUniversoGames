@@ -1,33 +1,36 @@
-﻿@model WebApplicationUniversoGames.Models.News
+﻿@using WebApplicationUniversoGames.Enums
+@model WebApplicationUniversoGames.Models.News
 @{
     ViewData["Title"] = "Create News";
 }
 
 <h1>Create - News</h1>
 @*
-            <div asp-validation-summary="ModelOnly">
-                </div>
-    *@
+    <div asp-validation-summary="ModelOnly">
+        </div>
+*@
 <form method="post" asp-action="Create" asp-controller="News" class="customForm" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control" id="" placeholder="Inserisci Titolo...">
-        <span asp-validation-for="Title"></span>
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control" id="" placeholder="Inserisci Titolo...">
-        <span asp-validation-for="Category"></span>
+        <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Categories>()">
+            <option>Please choose a category</option>
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="ImageFile" class="control-label"></label>
-        <input asp-for="ImageFile" type="file" class="form-control-file" >
-        <span asp-validation-for="ImageFile"></span>
+        <input asp-for="ImageFile" type="file" class="form-control-file">
+        <span asp-validation-for="ImageFile" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>
         <textarea asp-for="Content" class="form-control" id="" rows="10"></textarea>
-        <span asp-validation-for="Content"></span>
+        <span asp-validation-for="Content" class="text-danger"></span>
     </div>
     <div class="form-group row">
         <div class="col">

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationUniversoGames.Enums;
 
 namespace WebApplicationUniversoGames.Models
 {
@@ -15,8 +16,7 @@ namespace WebApplicationUniversoGames.Models
         [StringLength(200, MinimumLength =2)]
         public string Title { get; set; }
         [Required]
-        [StringLength(200, MinimumLength = 2)]
-        public string Category { get; set; }
+        public Categories Category { get; set; }
         [Required]
         [StringLength(5000, MinimumLength = 2)]
         public string Content { get; set; }
