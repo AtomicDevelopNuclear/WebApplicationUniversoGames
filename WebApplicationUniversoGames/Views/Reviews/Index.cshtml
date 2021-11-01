@@ -34,11 +34,11 @@
                     <div class="col-lg-6">
                         <!-- Blog post-->
                         <div class="card mb-4">
-                            <a><img class="card-img-top" src="@reviews.CoverImage" asp-append-version="true" /></a>
+                            <a><img class="card-img-top" src="@ReviewsFileLocation.RetriveFileFromFolder@reviews.CoverImage" asp-append-version="true" /></a>
                             <div class="card-body">
                                 <div class="small text-muted">Published on: @reviews.Date</div>
                                 <h2 class="card-title h4">@reviews.Title</h2>
-                                <a>Recensione: @reviews.Rev</a>
+                                <p class="card-text" id="">@reviews.Content</p>
                                 <p class="card-text" id="">@reviews.Score</p>
                                 <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@reviews.Id">Read More</a>
                             </div>

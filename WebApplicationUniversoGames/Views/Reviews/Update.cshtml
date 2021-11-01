@@ -1,15 +1,21 @@
-﻿@model WebApplicationUniversoGames.Models.Review
+﻿@using WebApplicationUniversoGames.Enums
+@model WebApplicationUniversoGames.ViewModel.ReviewsViewModel
 @{
-    ViewData["Title"] = "Update Review";
+    ViewData["Title"] = "Update Reviews";
 }
 
-<h1>Update Review @Model.Title</h1>
+<h1>Update Review on @Model.Title ?</h1>
 <!-- asp-action si riferisce all'update del controller, in questo caso il button'-->
-<form asp-action="Update" method="post" class="customForm">
+<form asp-action="Update" class="customForm" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Categories>()">
+            <option>Please choose a category</option>
+        </select>
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>
@@ -19,9 +25,10 @@
         <label asp-for="Score" class="form-label">Score</label>
         <input asp-for="Score" class="form-control" />
     </div>
-    <div class="mb-3">
-        <label asp-for="CoverImageFile" class="form-label">Immagine</label>
-        <input asp-for="CoverImageFile" class="form-control" accept="image/*"/>
+    <div class="mb-5">
+        <label asp-for="UploadedImage" class="control-label">Choose a file</label>
+        <input asp-for="UploadedImage" class="form-control-file">
+        <img src="@ReviewsFileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
     </div>
     <input asp-for="Date" hidden />
     <div class="form-group row">

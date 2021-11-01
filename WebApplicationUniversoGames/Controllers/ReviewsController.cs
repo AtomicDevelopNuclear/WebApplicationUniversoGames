@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
 using WebApplicationUniversoGames.Models;
+using WebApplicationUniversoGames.ViewModel;
 using X.PagedList;
 
 namespace WebApplicationUniversoGames.Controllers
@@ -50,94 +52,170 @@ namespace WebApplicationUniversoGames.Controllers
             return listPaged;
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id is null || id == 0)
+            {
+                return NotFound();
+            }
+            var reviewDetails = await _ctx.Reviews.FirstOrDefaultAsync(n => n.Id == id);
+            var reviewsViewModel = new ReviewsViewModel()
+            {
+                Id = reviewDetails.Id,
+                Title = reviewDetails.Title,
+                Category = reviewDetails.Category,
+                ExistingImage = reviewDetails.CoverImage,
+                Score = reviewDetails.Score,
+                Content = reviewDetails.Content,
+                Date = reviewDetails.Date
+            };
+            if (reviewDetails is null)
+            {
+                return NotFound();
+            }
+            return View(reviewDetails);
+        }
+        //GetCreateNews
         public IActionResult Create()
         {
-            return View();
+            return View();//pagina corrispondente...
         }
 
-        
+        //PostFunction
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Review newArticle)
+        public async Task<IActionResult> Create(ReviewsViewModel model)
         {
-                string folder = "ReviewsImages/CoverImage";
-                folder += Guid.NewGuid().ToString() + "_" + newArticle.CoverImageFile.FileName;
-                newArticle.CoverImage = folder;
-                string serverfolder = Path.Combine(_hostEnvironment.WebRootPath, folder);
-                await newArticle.CoverImageFile.CopyToAsync(new FileStream(serverfolder, FileMode.Create));
-                newArticle.Date = DateTime.Now;
-                _ctx.Add(newArticle);
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = ProcessUploadedFile(model);
+                Review newReview = new Review()
+                { 
+                    Id = model.Id,
+                    Title = model.Title,
+                    Category = model.Category,
+                    CoverImage = uniqueFileName,
+                    Score = model.Score,
+                    Content = model.Content,
+                    Date = DateTime.UtcNow
+                };
+                _ctx.Add(newReview);
                 await _ctx.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            return View(model);
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Update(int? id)
         {
-            if (id is null || id == 0)
+            if (id is null)
             {
                 return NotFound();
             }
-            var obj = _ctx.Reviews.Find(id);
-            if (obj is null)
+            var article = await _ctx.Reviews.FindAsync(id);
+            var reviewViewModel = new ReviewsViewModel()
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Category = article.Category,
+                ExistingImage = article.CoverImage,
+                Score = article.Score,
+                Content = article.Content,
+                Date = article.Date
+            };
+            if (article is null)
             {
                 return NotFound();
             }
-            return View(obj);
+            return View(reviewViewModel);
         }
 
         [HttpPost]
-        public IActionResult DeleteReviews(int? id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(int id, ReviewsViewModel model)
         {
-            var obj = _ctx.Reviews.Find(id);
-            if (obj is null)
+            if (ModelState.IsValid)
+            {
+                var newArticle = await _ctx.Reviews.FindAsync(model.Id);
+                newArticle.Title = model.Title;
+                newArticle.Category = model.Category;
+                newArticle.Content = model.Content;
+                newArticle.Score = model.Score;
+                if (model.UploadedImage != null)
+                {
+                    if (model.ExistingImage != null)
+                    {
+                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "ReviewsUploads", model.ExistingImage);
+                        System.IO.File.Delete(filePath);
+                    }
+                    newArticle.CoverImage = ProcessUploadedFile(model);
+                }
+                _ctx.Update(newArticle);
+                await _ctx.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+        //GetDelete
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id is null)
             {
                 return NotFound();
             }
-            _ctx.Reviews.Remove(obj);
-            _ctx.SaveChanges();
-            return Redirect("Index");
+            var review = await _ctx.Reviews.FirstOrDefaultAsync(n => n.Id == id);
+            var reviewViewModel = new ReviewsViewModel()
+            {
+                Id = review.Id,
+                Title = review.Title,
+                Category = review.Category,
+                Content = review.Content,
+                Score = review.Score,
+                ExistingImage = review.CoverImage
+            };
+            if (review is null)
+            {
+                return NotFound();
+            }
+            return View(reviewViewModel);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var review = await _ctx.Reviews.FindAsync(id);
+            var CurrentImage = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", review.CoverImage);
+            _ctx.Reviews.Remove(review);
+            if (await _ctx.SaveChangesAsync() > 0)
+            {
+                if (System.IO.File.Exists(CurrentImage))
+                {
+                    System.IO.File.Delete(CurrentImage);
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Update(int? id)
+        private bool NewsExists(int id)
         {
-            if (id is null || id == 0)
-            {
-                return NotFound();
-            }
-            var obj = _ctx.Reviews.Find(id);
-            if (obj is null)
-            {
-                return NotFound();
-            }
-            return View(obj);
+            return _ctx.News.Any(n => n.Id == id);
         }
 
-        [HttpPost]
-        public IActionResult Update(Review review)
+        private string ProcessUploadedFile(ReviewsViewModel model)
         {
-            if (ModelState.IsValid) // se il form e' valido
-            {
-                _ctx.Reviews.Update(review);
-                _ctx.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(review);
-        }
+            string uniqueFileName = null;
 
-        //httpget to view Details
-        public IActionResult Details(int? id)
-        {
-            if (id is null || id == 0)
+            if (model.UploadedImage != null)
             {
-                return NotFound();
+                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "ReviewsUploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.UploadedImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.UploadedImage.CopyTo(fileStream);
+                }
             }
-            var newsDetails = _ctx.Reviews.Find(id);
-            if (newsDetails is null)
-            {
-                return NotFound();
-            }
-            return View(newsDetails);
+            return uniqueFileName;
         }
-
     }
 }

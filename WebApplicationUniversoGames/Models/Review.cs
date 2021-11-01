@@ -25,7 +25,5 @@ namespace WebApplicationUniversoGames.Models
         public double Score { get; set; }
         [Required]
         public string CoverImage { get; set; }
-        [NotMapped]
-        public IFormFile CoverImageFile { get; set; }
     }
 }

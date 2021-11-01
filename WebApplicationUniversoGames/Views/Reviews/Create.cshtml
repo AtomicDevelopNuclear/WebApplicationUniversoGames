@@ -1,18 +1,20 @@
-﻿@model WebApplicationUniversoGames.Models.Review
+﻿@using WebApplicationUniversoGames.Enums
+@model WebApplicationUniversoGames.ViewModel.ReviewsViewModel
 @{
     ViewData["Title"] = "Create Review";
 }
 
 <h1>Create - Reviews</h1>
-<form asp-action="Create" method="post" class="customForm">
+<form asp-action="Create" method="post" class="customForm" enctype="multipart/form-data">
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control" placeholder="Inserisci Titolo...">
         <span asp-validation-for="Title"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control" placeholder="Inserisci Titolo...">
+        <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Categories>()">
+            <option>Please choose a category</option>
+        </select>
         <span asp-validation-for="Category"></span>
     </div>
     <div class="mb-3">
@@ -26,8 +28,11 @@
         <span asp-validation-for="Content"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="CoverImageFile" class="form-label">Image</label>
-        <input asp-for="CoverImageFile" type="file" class="form-control-file" >
+        <div class="custom-file">
+            <label asp-for="UploadedImage" class="control-label">Please choose a file</label>
+            <input asp-for="UploadedImage" type="file" class="form-control-file">
+        </div>
+        <span asp-validation-for="UploadedImage" class="text-danger"></span>
     </div>
     <div class="form-group row">
         <div class="col">

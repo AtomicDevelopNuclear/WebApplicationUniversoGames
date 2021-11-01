@@ -16,10 +16,10 @@
             <option>Please choose a category</option>
         </select>
     </div>
-    <div class="custom-file mb-3">
-        <label asp-for="NewsImage" class="control-label">Choose a file</label>
-        <input asp-for="NewsImage" class="form-control-file">
-        <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
+    <div class="custom-file mb-5">
+        <label asp-for="UploadedImage" class="control-label">Choose a file</label>
+        <input asp-for="UploadedImage" class="form-control-file">
+        <img src="@NewsFileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
     </div>
     <div class="mb-3">
         <label asp-for="Content" class="form-label">Content</label>

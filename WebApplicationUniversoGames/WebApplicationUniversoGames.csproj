@@ -25,9 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\News\Image\" />
-    <Folder Include="wwwroot\ReviewsImages\CoverImage\" />
-    <Folder Include="wwwroot\ReviewsImages\GalleryImages\" />
+    <Folder Include="wwwroot\ReviewsUploads\" />
+    <Folder Include="wwwroot\NewsUploads\" />
     <Folder Include="wwwroot\WebSiteImages\" />
   </ItemGroup>
 

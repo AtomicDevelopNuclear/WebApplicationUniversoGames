@@ -11,6 +11,6 @@ namespace WebApplicationUniversoGames.ViewModel
     {
         [Required]
         [Display(Name = "Image")]
-        public IFormFile NewsImage { get; set; }
+        public IFormFile UploadedImage { get; set; }
     }
 }

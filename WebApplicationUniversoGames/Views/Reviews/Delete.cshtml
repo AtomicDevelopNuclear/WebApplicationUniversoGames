@@ -1,10 +1,10 @@
-﻿@model WebApplicationUniversoGames.Models.Review
+﻿@model WebApplicationUniversoGames.ViewModel.ReviewsViewModel
 @{
     ViewData["Title"] = "Delete Review";
 }
 
 <h1>Vuoi Eliminare La Reviews Di @Model.Title?</h1>
-<form asp-action="DeleteReviews" method="post" class="customForm">
+<form asp-action="Delete" class="customForm">
     <input asp-for="Id" hidden />
     <div class="mb-3">
         <label asp-for="Title" class="form-label">Title</label>
@@ -19,8 +19,8 @@
         <textarea asp-for="Content" class="form-control" rows="10" disabled></textarea>
     </div>
     <div class="mb-3">
-        <label asp-for="CoverImageFile" class="form-label">Image</label>
-        <input asp-for="CoverImageFile" class="form-control" disabled>
+        <label asp-for="UploadedImage" class="form-label">Image</label>
+        <input asp-for="UploadedImage" class="form-control" disabled>
     </div>
     <div class="form-group row">
         <div class="col">

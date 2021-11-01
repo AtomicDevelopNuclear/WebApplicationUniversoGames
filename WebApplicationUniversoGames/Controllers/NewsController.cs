@@ -92,7 +92,7 @@ namespace WebApplicationUniversoGames.Controllers
                     Category = newArticle.Category,
                     Image = uniqueFileName,
                     Content = newArticle.Content,
-                    Date = newArticle.Date
+                    Date = DateTime.UtcNow
                 };
                 _ctx.Add(newNews);
                 await _ctx.SaveChangesAsync();
@@ -134,11 +134,11 @@ namespace WebApplicationUniversoGames.Controllers
                 newArticle.Title = model.Title;
                 newArticle.Category = model.Category;
                 newArticle.Content = model.Content;
-                if(model.NewsImage != null)
+                if(model.UploadedImage != null)
                 {
                     if(model.ExistingImage != null)
                     {
-                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "Uploads", model.ExistingImage);
+                        string filePath = Path.Combine(_hostEnvironment.WebRootPath, "NewsUploads", model.ExistingImage);
                         System.IO.File.Delete(filePath);
                     }
                     newArticle.Image = ProcessUploadedFile(model);
@@ -197,14 +197,14 @@ namespace WebApplicationUniversoGames.Controllers
         {
             string uniqueFileName = null;
 
-            if (model.NewsImage != null)
+            if (model.UploadedImage != null)
             {
-                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "Uploads");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.NewsImage.FileName;
+                string uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "NewsUploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.UploadedImage.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    model.NewsImage.CopyTo(fileStream);
+                    model.UploadedImage.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;
