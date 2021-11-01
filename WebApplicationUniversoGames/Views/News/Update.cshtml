@@ -1,4 +1,5 @@
 ﻿@model WebApplicationUniversoGames.ViewModel.NewsViewModel
+@using WebApplicationUniversoGames.Enums 
 @{
     ViewData["Title"] = "Update News";
 }
@@ -11,8 +12,9 @@
         <input asp-for="Title" class="form-control">
     </div>
     <div class="mb-3">
-        <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control">
+        <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Categories>()">
+            <option>Please choose a category</option>
+        </select>
     </div>
     <div class="custom-file mb-3">
         <label asp-for="NewsImage" class="control-label">Choose a file</label>
