@@ -48,7 +48,17 @@
                                 <h2 class="card-title h4">@review.Title</h2>
                                 <p class="card-text" id="">@review.Content</p>
                                 <p class="card-text text-right" id="">@review.Score <i class="fas fa-star text-warning"></i></p>
-                                <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@review.Id">Read More</a>
+                                    </div>
+                                    @if ((DateTime.Now - review.Date).Days <= 2)
+                                    {
+                                        <div class="col-6 text-right">
+                                            <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>

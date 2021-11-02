@@ -48,7 +48,19 @@
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
                                 <p class="card-text" id="contnews">@news.Content</p>
-                                <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
+
+                                    </div>
+                                    @if ((DateTime.Now - news.Date).Days <= 2)
+                                    {
+                                        <div class="col-6 text-right">
+                                            <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
+                                        </div>
+                                    }
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
