@@ -56,7 +56,7 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 pageNumber = 1;
             }
-            var news = from n in _ctx.News select n;
+            var news =_ctx.News.AsQueryable();
             if (!String.IsNullOrEmpty(searchedString))
             {
                 news = news.Where(s => s.Title.Contains(searchedString) || s.Content.Contains(searchedString));

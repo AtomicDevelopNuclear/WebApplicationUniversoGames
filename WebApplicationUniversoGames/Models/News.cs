@@ -9,19 +9,14 @@ using WebApplicationUniversoGames.Enums;
 
 namespace WebApplicationUniversoGames.Models
 {
-    public class News
+    public class News : ArticleCommons
     {
-        public int Id { get; set; }
-        [Required]
-        [StringLength(200, MinimumLength = 2)]
-        public string Title { get; set; }
+        
         [Required]
         public Categories Category { get; set; }
         [Required]
         public string Image { get; set; }
-        [Required]
-        [StringLength(2000, MinimumLength = 50)]
-        public string Content { get; set; }
+        
         public DateTime Date { get; set; }
     }
 }

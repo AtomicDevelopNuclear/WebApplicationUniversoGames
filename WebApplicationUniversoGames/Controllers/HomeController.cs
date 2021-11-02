@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return _ctx.Reviews.ToList();
         }
-        
+        /*
         public IActionResult Index(int page = 1)
         {
             dynamic allData = new ExpandoObject();
@@ -53,6 +54,7 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 AllData.Add(r);
             }
+        
         // page the list
         const int pageSize = 4;
             var listPaged = AllData.ToPagedList(page ?? 1, pageSize);
@@ -61,7 +63,23 @@ namespace WebApplicationUniversoGames.Controllers
                 return null;
             return listPaged;
         }
-        
+        */
+        public IActionResult Index(string searchedString, int? pageNumber)
+        {
+            ViewData["CurrentFilter"] = searchedString;
+            if (searchedString != null)
+            {
+                pageNumber = 1;
+            }
+            IQueryable<ArticleCommons> allData = new List<ArticleCommons>().Concat(_ctx.News.ToList()).Concat(_ctx.Reviews.ToList()).AsQueryable();
+            
+            if (!String.IsNullOrEmpty(searchedString))
+            {
+                allData = allData.Where(s => s.Title.Contains(searchedString)  || s.Content.Contains(searchedString));
+            }
+            int pageSize = 4;
+            return View(PaginatedList<object>.Create(allData.AsNoTracking(), pageNumber ?? 1, pageSize));
+        }
         public IActionResult Privacy()
         {
             return View();
