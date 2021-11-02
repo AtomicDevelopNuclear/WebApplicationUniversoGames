@@ -16,7 +16,5 @@ namespace WebApplicationUniversoGames.Models
         public Categories Category { get; set; }
         [Required]
         public string Image { get; set; }
-        
-        public DateTime Date { get; set; }
     }
 }

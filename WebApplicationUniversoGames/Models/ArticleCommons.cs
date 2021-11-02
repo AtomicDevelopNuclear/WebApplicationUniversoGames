@@ -15,5 +15,6 @@ namespace WebApplicationUniversoGames.Models
         [Required]
         [StringLength(5000, MinimumLength = 50)]
         public string Content { get; set; }
+        public DateTime Date { get; set; }
     }
 }
