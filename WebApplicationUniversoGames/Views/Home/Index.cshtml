@@ -27,16 +27,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
-                    <form asp-action="Index" method="get" class="mb-3">
-                        <div class="search">
-                            <i class="fa fa-search"></i>
-                            <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Have a question? Ask Now">
-                            <input type="submit" value="Search" class="btn btn-primary searchBarButton" />
-                        </div>
-                    </form>
-                    <a asp-action="Index" class="text-light">Back to Full List</a>
-                </div>
+                <!--<div class="col-md-8">
+                   <form asp-action="Index" method="get" class="mb-3">
+                       <div class="search">
+                           <i class="fa fa-search"></i>
+                           <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Have a question? Ask Now">
+                           <input type="submit" value="Search" class="btn btn-primary searchBarButton" />
+                       </div>
+                   </form>
+                   <!-- <form asp-action="Index" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" value="@*ViewData["CurrentFilter"]*@" placeholder="Search" aria-label="Search">
+        <input type="submit" value="Search" class="btn btn-outline-success my-2 my-sm-0" />
+    </form>ì
+                <a asp-action="Index" class="text-light">Back to Full List</a>
+            </div>-->
                 <!-- Blog entries-->
                 @foreach (var n in Model)
                 {

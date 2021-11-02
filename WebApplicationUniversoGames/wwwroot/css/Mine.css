@@ -48,9 +48,7 @@ h1 {
     color:#ff911a !important; 
 } 
 
-.navbar{     
-    height:100px !important;
-} 
+
 .card {     
     background-color: rgba(0, 0, 0, 0.6) !important; 
     color: whitesmoke;
@@ -104,4 +102,42 @@ body {
 .search .searchBarButton:hover{
         border-color: none !important;
         border: none;
+}
+
+.btn-outline-maincolor {
+    color: #ff1178;
+    border-color: #ff1178;
+    border:solid 3px;
+}
+
+.navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    color: #B0FFE7;
+    border:1px solid;
+    border-radius:0.25rem;
+}
+
+.btn-outline-maincolor:hover {
+    color: magenta;
+    border-color: magenta;
+    border: solid 3px;
+}
+
+.nav-item > a:hover {
+    color: magenta !important;
+}
+
+.nav-item > a {
+    color: #ff1178;
+}
+
+.nav-item > #user {
+    color: orange;
+}
+
+.nav-item > #user:hover {
+    color: yellow !important;
 }
