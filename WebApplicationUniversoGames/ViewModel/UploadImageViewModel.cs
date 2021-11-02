@@ -9,7 +9,7 @@ namespace WebApplicationUniversoGames.ViewModel
 {
     public class UploadImageViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Image")]
         public IFormFile UploadedImage { get; set; }
     }

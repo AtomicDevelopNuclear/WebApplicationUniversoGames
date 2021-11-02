@@ -16,26 +16,25 @@
                 <a href="#!"><img class="card-img-top" src="https://www.telefilm-central.org/wp-content/uploads/2019/05/cleganebowl-game-of-thrones-1.jpg" alt="..." /></a>
                 <div class="card-body">
                     <div class="small text-muted">@DateTime.Now.ToString("yyyy-MM-dd")</div>
-                    <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
+                    <h2 class="card-title">Click the button below to create a new content for our reviews section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <a asp-action="Create" asp-controller="Reviews" class="btn btn-primary w-100">Create a Review <i class="fa-solid fa-plus"></i></a>
+                        <a asp-action="Create" asp-controller="Reviews" class="btn btn-primary w-100">Create a Review </a>
                     }
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-12">
-                    <form asp-action="Index" method="get">
-                        <div class="form-actions no-color">
-                            <p>
-                                Search: <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" />
-                                <input type="submit" value="Search" class="btn btn-default" /> |
-                                <a asp-action="Index">Back to Full List</a>
-                            </p>
+                <div class="col-md-8">
+                    <form asp-action="Index" method="get" class="mb-3">
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Have a question? Ask Now">
+                            <input type="submit" value="Search" class="btn btn-primary searchBarButton" />
                         </div>
                     </form>
+                    <a asp-action="Index" class="text-light">Back to Full List</a>
                 </div>
 
                 @foreach (var review in Model)

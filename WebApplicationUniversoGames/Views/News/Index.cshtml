@@ -25,18 +25,16 @@
 
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-12">
-                    <form asp-action="Index" method="get">
-                        <div class="form-actions no-color">
-                            <p>
-                                Search: <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" />
-                                <input type="submit" value="Search" class="btn btn-default" /> |
-                                <a asp-action="Index">Back to Full List</a>
-                            </p>
+                <div class="col-md-8">
+                    <form asp-action="Index" method="get" class="mb-3">
+                        <div class="search">
+                            <i class="fa fa-search"></i>
+                            <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Have a question? Ask Now">
+                            <input type="submit" value="Search" class="btn btn-primary searchBarButton" />
                         </div>
                     </form>
+                    <a asp-action="Index" class="text-light">Back to Full List</a>
                 </div>
 
                 @foreach (var news in Model)

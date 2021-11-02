@@ -40,12 +40,12 @@ body {
 } 
 
 .customForm label{     
-    color:yellow 
+    color:ghostwhite;
+    font-size: large;
 } 
 
 h1 {     
     color:#ff911a !important; 
-
 } 
 
 .navbar{     
@@ -65,4 +65,43 @@ h1 {
 .pagination a {
     color: antiquewhite;
     background-color: magenta;
+}
+
+body {
+    background-color: #eee;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300
+}
+
+.height {
+    height: 100vh
+}
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+}
+
+.search input {
+        height: 60px;
+        text-indent: 25px;
+}
+.search .fa-search {
+        position: absolute;
+        top: 20px;
+        left: 16px
+}
+
+.search .searchBarButton {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        height: 50px;
+        width: 110px;
+        background: #ff1178;
+}
+
+.search .searchBarButton:hover{
+        border-color: none !important;
+        border: none;
 }
