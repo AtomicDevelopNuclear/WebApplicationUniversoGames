@@ -141,3 +141,31 @@ body {
 .nav-item > #user:hover {
     color: yellow !important;
 }
+
+.fa-facebook{
+    font-size:2em;
+    text-decoration:none;
+}
+
+.fa-twitter {
+    font-size: 2em;
+    text-decoration: none;
+}
+
+.fa-google-plus-g {
+    font-size: 2em;
+    text-decoration: none;
+}
+
+.fa-telegram-plane {
+    font-size: 2em;
+    text-decoration: none;
+}
+
+#copyrightTeam {
+    color: #ff1178;
+}
+
+#copyrightTeam:hover {
+        color: magenta !important;
+}
