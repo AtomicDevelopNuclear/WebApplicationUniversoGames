@@ -16,38 +16,34 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg " style="background-color:rgb(0, 0, 0); border-bottom:3px solid; border-bottom-color:#B0FFE7;">
-            <div class="container-fluid">
-                <a class="navbar-brand" style="color: #B0FFE7;" asp-controller="Home" asp-action="Index"><i class="fas fa-ghost"></i> UNIVERSO GAMES</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="ciao">
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a id="searchbutton" href="#" onclick="ShowAndHide()" class="nav-link active" style="color: #B0FFE7;"><i class="fas fa-search"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="color: #fbff00;" aria-current="page" asp-action="Index" asp-controller="News">NEWS</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" style="color: #ff911a;" aria-current="page" asp-action="Index" asp-controller="Reviews">REVIEWS</a>
-                            </li>
-                            <partial name="_LoginPartial" />
-                        </ul>
-                    </div>
-                </div>
+        <nav class="navbar navbar-expand-lg sticky-top" style="background-color:rgb(0, 0, 0); border-bottom:1px solid; border-bottom-color:#B0FFE7; position:fixed; width:100%;">
+            <a class="navbar-brand" style="color: #B0FFE7;" asp-controller="Home" asp-action="Index"><i class="fas fa-ghost"></i> UNIVERSO GAMES</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a id="searchbutton" href="#" onclick="ShowAndHide()" class="nav-link active" style="color: #B0FFE7;"><i class="fas fa-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: #fbff00;" aria-current="page" asp-action="Index" asp-controller="News">NEWS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: #ff911a;" aria-current="page" asp-action="Index" asp-controller="Reviews">REVIEWS</a>
+                    </li>
+                    <partial name="_LoginPartial" />
+                </ul>
             </div>
         </nav>
-            <form asp-controller="Home" asp-action="Search" method="get" id="formnewssearch">
-                <div class="input-group mb-3">
-                    <input id="searchbarnews" type="text" name="SearchString" class="form-control" placeholder="Cerca news..." aria-label="Cerca news" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit" id="button-addon2">Cerca</button>
-                    </div>
+        <form asp-controller="Home" asp-action="Search" method="get" id="formnewssearch" style="margin-top:5%;">
+            <div class="input-group mt-5">
+                <input id="searchbarnews" type="text" name="SearchString" class="form-control" placeholder="Cerca news..." aria-label="Cerca news" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit" id="button-addon2">Cerca</button>
                 </div>
-            </form>
+            </div>
+        </form>
         <!--<form method="get">
     <div class="col-md-5 col-12">
         <div class="form-outline">
@@ -93,7 +89,7 @@
         -->
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mt-5">
             @RenderBody()
         </main>
     </div>
