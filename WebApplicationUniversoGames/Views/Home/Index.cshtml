@@ -110,13 +110,13 @@
 
             <a asp-action="Index"
                asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchedString="@ViewData["CurrentFilter"]"
                class="btn btn-outline-light w-25 @prevDisabled">
                 Previous
             </a>
             <a asp-action="Index"
                asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchedString="@ViewData["CurrentFilter"]"
                class="btn btn-outline-light w-25 @nextDisabled">
                 Next
             </a>
