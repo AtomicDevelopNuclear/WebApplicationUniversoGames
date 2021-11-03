@@ -75,10 +75,10 @@ namespace WebApplicationUniversoGames.Controllers
             
             if (!String.IsNullOrEmpty(searchedString))
             {
-                allData = allData.Where(s => s.Title.Contains(searchedString)  || s.Content.Contains(searchedString));
+                allData = allData.Where(s => s.Title.ToLower().Contains(searchedString.ToLower())  || s.Content.ToLower().Contains(searchedString.ToLower()));
             }
             int pageSize = 4;
-            return View(PaginatedList<object>.Create(allData.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(PaginatedList<object>.Create(allData.OrderByDescending(x => x.Date).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public IActionResult Privacy()
         {
