@@ -72,7 +72,6 @@ namespace WebApplicationUniversoGames.Controllers
                 pageNumber = 1;
             }
             IQueryable<ArticleCommons> allData = new List<ArticleCommons>().Concat(_ctx.News.ToList()).Concat(_ctx.Reviews.ToList()).AsQueryable();
-            
             if (!String.IsNullOrEmpty(searchedString))
             {
                 allData = allData.Where(s => s.Title.ToLower().Contains(searchedString.ToLower())  || s.Content.ToLower().Contains(searchedString.ToLower()));
