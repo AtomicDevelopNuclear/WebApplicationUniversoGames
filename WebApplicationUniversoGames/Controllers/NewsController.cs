@@ -59,10 +59,10 @@ namespace WebApplicationUniversoGames.Controllers
             var news =_ctx.News.AsQueryable();
             if (!String.IsNullOrEmpty(searchedString))
             {
-                news = news.Where(s => s.Title.Contains(searchedString) || s.Content.Contains(searchedString));
+                news = news.Where(s => s.Title.ToLower().Contains(searchedString.ToLower()) || s.Content.ToLower().Contains(searchedString.ToLower()));
             }
             int pageSize = 4;
-            return View(await PaginatedList<News>.CreateAsync(news.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<News>.CreateAsync(news.OrderByDescending(x=>x.Date).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         //httpget to view Details
         public async Task<IActionResult> Details(int? id)

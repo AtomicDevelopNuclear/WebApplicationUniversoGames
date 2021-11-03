@@ -62,10 +62,10 @@ namespace WebApplicationUniversoGames.Controllers
             var reviews = from n in _ctx.Reviews select n;
             if (!String.IsNullOrEmpty(searchedString))
             {
-                reviews = reviews.Where(s => s.Title.Contains(searchedString) || s.Content.Contains(searchedString));
+                reviews = reviews.Where(s => s.Title.ToLower().Contains(searchedString.ToLower()) || s.Content.ToLower().Contains(searchedString.ToLower()));
             }
             int pageSize = 4;
-            return View(await PaginatedList<Review>.CreateAsync(reviews.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Review>.CreateAsync(reviews.OrderByDescending(x=>x.Date).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
         public async Task<IActionResult> Details(int? id)
         {

@@ -14,7 +14,6 @@ namespace WebApplicationUniversoGames.Models
         
         public Categories Category { get; set; }
         
-        public DateTime Date { get; set; }
         [Required]
         public double Score { get; set; }
         [Required]
