@@ -66,6 +66,8 @@ namespace WebApplicationUniversoGames.Controllers
         */
         public IActionResult Index(string searchedString, int? pageNumber)
         {
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["CurrentFilter"] = searchedString;
             if (searchedString != null)
             {
@@ -90,5 +92,7 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+       
     }
 }
