@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Data;
+using WebApplicationUniversoGames.IdentityPolicy;
+using WebApplicationUniversoGames.Models;
 
 namespace WebApplicationUniversoGames
 {
@@ -26,6 +28,7 @@ namespace WebApplicationUniversoGames
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IPasswordValidator<AppUser>, CustomPasswordPolicy>();
             services.AddControllersWithViews();
             var address = Configuration.GetConnectionString("Default");
             services.AddControllersWithViews();
@@ -36,7 +39,22 @@ namespace WebApplicationUniversoGames
                 ServerVersion.AutoDetect(address)
                     )
                 );
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>(); 
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+            //Passwords requirements
+            services.Configure<IdentityOptions>(opts => {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 8;
+                opts.Password.RequireNonAlphanumeric = true;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = true;
+                opts.Password.RequireDigit = true;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = ".AspNetCore.Identity.Application";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.SlidingExpiration = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

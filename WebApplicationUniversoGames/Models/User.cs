@@ -4,18 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplicationUniversoGames.ViewModel
+namespace WebApplicationUniversoGames.Models
 {
-    public class LoginViewModel
+    public class User
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string Name { get; set; }
+
         [Required]
-        [DataType(DataType.Password)]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        public string Email { get; set; }
+
+        [Required]
         public string Password { get; set; }
-        [Display(Name="Remember me")]
-        public bool RememberMe { get; set; }
-        public string ReturnUrl { get; set; }
     }
 }

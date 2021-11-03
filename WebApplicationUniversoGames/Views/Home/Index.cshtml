@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserInManager
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserInManager
 @model PaginatedList<object>
 @{
     ViewData["Title"] = "HomePage | Universo Games";
@@ -66,7 +66,6 @@
                             </div>
                         </div>
                     </div>
-
                     }
                     else if (n is Review review)
                     {
@@ -83,7 +82,7 @@
                                     <div class="col-6">
                                         <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
                                     </div>
-                                    @if ((DateTime.Now - review.Date).Days <= 2)
+                                    @if((DateTime.Now - review.Date).Days <= 2)
                                     {
                                         <div class="col-6 text-right">
                                             <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
