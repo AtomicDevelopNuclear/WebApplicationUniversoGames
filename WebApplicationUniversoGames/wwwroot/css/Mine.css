@@ -201,3 +201,17 @@ body {
 #copyrightTeam:hover {
     color: magenta !important;
 }
+.form-control{
+    color: whitesmoke;
+    background-color: rgba(0,0,0,0.6)
+}
+.form-control:focus {
+    color: whitesmoke;
+    background-color: rgba(0,0,0,0.6);
+    border-color: magenta;
+    box-shadow: 0 0 0 0.2rem rgb(192 0 255 / 28%);
+}
+#customSelect{
+    background-color: black;
+    opacity: 0.5;
+}
