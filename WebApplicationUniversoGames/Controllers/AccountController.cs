@@ -5,17 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplicationUniversoGames.Models;
 using WebApplicationUniversoGames.ViewModel;
 
 namespace WebApplicationUniversoGames.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-                                      SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager,
+                                      SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -29,7 +30,7 @@ namespace WebApplicationUniversoGames.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new AppUser
                 {
                     UserName = model.UserName,
                     Email = model.Email
@@ -53,18 +54,32 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl)
+        {
+            LoginViewModel login = new LoginViewModel();
+            login.ReturnUrl = returnUrl;
+            return View(login);
+        }
+
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult>Login(LoginViewModel user)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-                if (result.Succeeded)
+                var appUser = await _userManager.FindByEmailAsync(user.Email);
+                if (appUser!=null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    await _signInManager.SignOutAsync();
+                    Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(appUser, user.Password, false, false);
+                    if (result.Succeeded)
+                    {
+                        return Redirect(user.ReturnUrl ?? "/");
+                    }
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt");
+                ModelState.AddModelError(nameof(user.Email), "Invalid login attempt");
             }
             return View(user);
         }

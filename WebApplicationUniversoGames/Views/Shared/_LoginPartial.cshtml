@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+<<<<<<< HEAD
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserInManager
 @if (SignInManager.IsSignedIn(User))
@@ -11,6 +12,27 @@
             <a class="nav-link" id="user" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
         </li>
     </ul>
+=======
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Menage users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Menage roles</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hi @User.Identity.Name</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+    </li>
+>>>>>>> projectversionwithauth
 }
 else
 {

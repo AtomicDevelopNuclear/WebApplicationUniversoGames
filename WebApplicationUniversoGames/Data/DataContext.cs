@@ -9,7 +9,7 @@ using WebApplicationUniversoGames.Models;
 
 namespace WebApplicationUniversoGames.Data
 {
-    public class DataContext:IdentityDbContext
+    public class DataContext:IdentityDbContext<AppUser>
     {
         public DataContext(DbContextOptions<DataContext> opt) : base(opt)
         {
