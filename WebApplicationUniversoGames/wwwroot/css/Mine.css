@@ -19,6 +19,12 @@
     white-space: nowrap;
 }
 
+#contreview {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 body {
     background-image: url("https://cdn2.softswiss.net/n1casino/b/quickfire/MGS_RetroGalaxy.jpg");
     background-size: cover;
@@ -149,14 +155,17 @@ body {
 
 .fa-twitter {
     font-size: 2em;
+    color: whitesmoke;
 }
 
 .fa-google-plus-g {
     font-size: 2em;
+    color: whitesmoke;
 }
 
 .fa-telegram-plane {
     font-size: 2em;
+    color: whitesmoke;
 }
 
 #copyrightTeam {
