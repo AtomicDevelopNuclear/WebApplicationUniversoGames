@@ -205,6 +205,10 @@ body {
     color: whitesmoke;
     background-color: rgba(0,0,0,0.6)
 }
+.form-control[disabled] {
+    color: whitesmoke;
+    background-color: rgba(0,0,0,0.6)
+}
 .form-control:focus {
     color: whitesmoke;
     background-color: rgba(0,0,0,0.6);

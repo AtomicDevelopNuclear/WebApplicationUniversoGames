@@ -36,29 +36,36 @@
             <div class="row">
                 @foreach (var review in Model)
                 {
-                    <div class="col-lg-6">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a><img class="card-img-top" src="@ReviewsFileLocation.RetriveFileFromFolder@review.CoverImage" height="300" width="700" asp-append-version="true" /></a>
-                            <div class="card-body">
-                                <div class="small" id="datecolor">Published on: @review.Date.ToString("yyyy-MM-dd")</div>
-                                <h2 class="card-title h4">@review.Title</h2>
-                                <p class="card-text" id="contnews">@review.Content</p>
-                                <p class="card-text text-right" id="">@review.Score <i class="fas fa-star text-warning"></i></p>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
-                                    </div>
-                                    @if ((DateTime.Now - review.Date).Days < 2)
-                                    {
-                                        <div class="col-6 text-right">
-                                            <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
-                                        </div>
-                                    }
+                <div class="col-lg-6">
+                    <!-- Blog post-->
+                    <div class="card mb-4">
+                        <a><img class="card-img-top" src="~/ReviewsUploads/@review.CoverImage" alt="..." height="250" width="700" /></a>
+                        <div class="card-body">
+                            <div class="small" id="datecolor">Published on: @review.Date.ToString("yyyy-MM-dd")</div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h2 class="card-title h4" id="contnews">@review.Title</h2>
                                 </div>
+                                <div class="col-4 text-right">
+                                    <a>Score: @review.Score  <i class="fas fa-star text-warning"></i></a>
+                                </div>
+                            </div>
+                            <a>Category: @review.Category</a>
+                            <p class="card-text" id="contnews">@review.Content</p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <a class="btn btn-primary" asp-action="Details" asp-controller="Reviews" asp-route-id="@review.Id">Read More</a>
+                                </div>
+                                @if ((DateTime.Now - review.Date).Days < 2)
+                                {
+                                    <div class="col-6 text-right">
+                                        <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
+                </div>
                 }
                 <div class="col-12 text-center">
                     @{
