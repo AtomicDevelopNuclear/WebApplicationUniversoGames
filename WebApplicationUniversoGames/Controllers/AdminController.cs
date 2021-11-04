@@ -29,12 +29,12 @@ namespace WebApplicationUniversoGames.Controllers
             return View(_userManager.Users);
         }
         //Get View
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ViewResult Create() => View();
 
         //Action to create new user from admin panel
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(User user)
         {
             if (ModelState.IsValid)
@@ -60,6 +60,7 @@ namespace WebApplicationUniversoGames.Controllers
             return View(User);
         }
         //Get Update section
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult>Update(string id)
         {
             AppUser user = await _userManager.FindByIdAsync(id);
@@ -74,6 +75,7 @@ namespace WebApplicationUniversoGames.Controllers
         }
         //Post to update user from admin panel
         [HttpPost]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult>Update(string id, string email, string password)
         {
             AppUser user = await _userManager.FindByIdAsync(id);
