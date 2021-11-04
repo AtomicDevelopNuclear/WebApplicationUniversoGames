@@ -4,36 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplicationUniversoGames.Migrations
 {
-    public partial class AddedIdentityLogicToDB : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_News_Admins_AdminId",
-                table: "News");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Reviews_Admins_AdminId",
-                table: "Reviews");
-
-            migrationBuilder.DropTable(
-                name: "Admins");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Reviews_AdminId",
-                table: "Reviews");
-
-            migrationBuilder.DropIndex(
-                name: "IX_News_AdminId",
-                table: "News");
-
-            migrationBuilder.DropColumn(
-                name: "AdminId",
-                table: "Reviews");
-
-            migrationBuilder.DropColumn(
-                name: "AdminId",
-                table: "News");
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -86,6 +62,51 @@ namespace WebApplicationUniversoGames.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Category = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Title = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Content = table.Column<string>(type: "varchar(5000)", maxLength: 5000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Category = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Score = table.Column<double>(type: "double", nullable: false),
+                    CoverImage = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Content = table.Column<string>(type: "varchar(5000)", maxLength: 5000, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -272,65 +293,16 @@ namespace WebApplicationUniversoGames.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.AddColumn<int>(
-                name: "AdminId",
-                table: "Reviews",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "AdminId",
-                table: "News",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.CreateTable(
-                name: "Admins",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Password = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Username = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admins", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reviews_AdminId",
-                table: "Reviews",
-                column: "AdminId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_News_AdminId",
-                table: "News",
-                column: "AdminId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_News_Admins_AdminId",
-                table: "News",
-                column: "AdminId",
-                principalTable: "Admins",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Reviews_Admins_AdminId",
-                table: "Reviews",
-                column: "AdminId",
-                principalTable: "Admins",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
     }
 }

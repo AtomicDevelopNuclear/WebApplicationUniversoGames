@@ -26,17 +26,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
-                    <form asp-action="Index" method="get" class="mb-3">
-                        <div class="search">
-                            <i class="fa fa-search"></i>
-                            <input type="text" name="SearchedString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Have a question? Ask Now">
-                            <input type="submit" value="Search" class="btn btn-primary searchBarButton" />
-                        </div>
-                    </form>
-                    <a asp-action="Index" class="text-light">Back to Full List</a>
-                </div>
-
                 @foreach (var news in Model)
                 {
                     <div class="col-lg-6">

@@ -9,8 +9,8 @@ using WebApplicationUniversoGames.Data;
 namespace WebApplicationUniversoGames.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211031204010_retry")]
-    partial class retry
+    [Migration("20211102140851_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,8 +223,8 @@ namespace WebApplicationUniversoGames.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("varchar(2000)");
+                        .HasMaxLength(5000)
+                        .HasColumnType("varchar(5000)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
@@ -251,8 +251,7 @@ namespace WebApplicationUniversoGames.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Content")
                         .IsRequired()
