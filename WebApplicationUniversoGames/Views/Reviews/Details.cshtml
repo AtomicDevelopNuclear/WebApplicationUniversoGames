@@ -18,13 +18,14 @@
                 <a href="#!"><img class="card-img-top" src="~/ReviewsUploads/@Model.CoverImage" alt="..." /></a>
                 <div class="card-body">
                     <div class="small text-muted">@Model.Date.ToString("yyyy-MM-dd")</div>
+                    <div class="small text-muted">Author: @Model.Author.UserName</div>
                     <h2 class="card-title">@Model.Title</h2>
                     <h4>@Model.Category</h4>
                     <p class="card-text">@Model.Content</p>
                     <p class="card-text">Score : @Model.Score <i class="fas fa-star text-warning"></i></p>
                     <div class="row">
                         <div class="col-6">
-                            @if (SignInManager.IsSignedIn(User))
+                            @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
                             {
                                 <a class="btn btn-danger mx-1" asp-action="Delete" asp-controller="Reviews" asp-route-id="@Model.Id">Delete</a>
                                 <a class="btn btn-warning mx-1" asp-action="Update" asp-controller="Reviews" asp-route-id="@Model.Id">Update</a>

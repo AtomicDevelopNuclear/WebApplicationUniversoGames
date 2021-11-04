@@ -13,6 +13,15 @@
             <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">Menage roles</a>
         </li>
     }
+    if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="News" asp-action="Create"><i class="fas fa-plus"></i> New Article</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Reviews" asp-action="Create"><i class="fas fa-plus"></i> New Review</a>
+        </li>
+    }
     <li class="nav-item">
         <a class="nav-link" id="user" asp-area="" asp-controller="Home" asp-action="Index">Hi @User.Identity.Name</a>
     </li>
@@ -29,5 +38,5 @@ else
         <li class="nav-item active">
             <a class="nav-link" id="user" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
         </li>
-     </ul>
+    </ul>
 }

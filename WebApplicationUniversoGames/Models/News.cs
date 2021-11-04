@@ -16,5 +16,7 @@ namespace WebApplicationUniversoGames.Models
         public Categories Category { get; set; }
         [Required]
         public string Image { get; set; }
+        public string AuthorId { get; set; }
+        public AppUser Author { get; set; }
     }
 }

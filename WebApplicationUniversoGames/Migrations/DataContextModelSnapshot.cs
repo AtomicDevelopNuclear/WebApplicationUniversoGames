@@ -215,6 +215,9 @@ namespace WebApplicationUniversoGames.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -238,7 +241,36 @@ namespace WebApplicationUniversoGames.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.NewsComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NewsComments");
                 });
 
             modelBuilder.Entity("WebApplicationUniversoGames.Models.Review", b =>
@@ -246,6 +278,9 @@ namespace WebApplicationUniversoGames.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -273,7 +308,36 @@ namespace WebApplicationUniversoGames.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.ReviewComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReviewComments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -325,6 +389,58 @@ namespace WebApplicationUniversoGames.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.News", b =>
+                {
+                    b.HasOne("WebApplicationUniversoGames.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.NewsComment", b =>
+                {
+                    b.HasOne("WebApplicationUniversoGames.Models.News", "LinkedArticle")
+                        .WithMany()
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplicationUniversoGames.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("LinkedArticle");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.Review", b =>
+                {
+                    b.HasOne("WebApplicationUniversoGames.Models.AppUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("WebApplicationUniversoGames.Models.ReviewComment", b =>
+                {
+                    b.HasOne("WebApplicationUniversoGames.Models.Review", "LinkedReview")
+                        .WithMany()
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplicationUniversoGames.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("LinkedReview");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

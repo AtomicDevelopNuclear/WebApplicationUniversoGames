@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,11 +22,13 @@ namespace WebApplicationUniversoGames.Controllers
         //Dependence Injection Direttamente nei controller perchè non abbiamo i services
         private readonly DataContext _ctx;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<AppUser> _userManager;
 
-        public NewsController(DataContext ctx, IWebHostEnvironment hostEnvironment)
+        public NewsController(DataContext ctx, IWebHostEnvironment hostEnvironment, UserManager<AppUser> userManager)
         {
             _ctx = ctx;
             _hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
         /*
         [HttpGet]
@@ -68,7 +73,8 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 return NotFound();
             }
-            var newsDetails = await _ctx.News.FirstOrDefaultAsync(n => n.Id == id);
+            var newsDetails = await _ctx.News.Include(x=> x.Author).FirstOrDefaultAsync(n => n.Id == id);
+            var comments = await _ctx.NewsComments.Include(x=>x.User).Where(c => c.NewsId == id).ToListAsync();
             var newsViewModel = new NewsViewModel()
             {
                 Id = newsDetails.Id,
@@ -76,13 +82,27 @@ namespace WebApplicationUniversoGames.Controllers
                 Category = newsDetails.Category,
                 ExistingImage = newsDetails.Image,
                 Content = newsDetails.Content,
-                Date = newsDetails.Date
+                Date = newsDetails.Date,
+                AuthorId = newsDetails.AuthorId
             };
+            List<NewsCommentViewModel> allComments = new List<NewsCommentViewModel>();
+            foreach(var comment in comments)
+            {
+                NewsCommentViewModel item = new NewsCommentViewModel()
+                {
+                    Id = comment.Id,
+                    Content = comment.Content,
+                    Date = comment.Date,
+                    UserId = comment.UserId,
+                    ReviewId = comment.NewsId
+                };
+            }
+            var tupleModel = new Tuple<News, List<NewsComment>>(newsDetails, comments);
             if (newsDetails is null)
             {
                 return NotFound();
             }
-            return View(newsDetails);
+            return View(tupleModel);
         }
         //GetCreateNews
         public IActionResult Create()
@@ -95,6 +115,8 @@ namespace WebApplicationUniversoGames.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult>Create(NewsViewModel newArticle)
         {
+            if (User.Identity.IsAuthenticated)
+            {
             if (ModelState.IsValid)
             {
                 string uniqueFileName = ProcessUploadedFile(newArticle);
@@ -105,14 +127,18 @@ namespace WebApplicationUniversoGames.Controllers
                     Category = newArticle.Category,
                     Image = uniqueFileName,
                     Content = newArticle.Content,
-                    Date = DateTime.UtcNow
+                    Date = DateTime.UtcNow,
+                    AuthorId = _userManager.GetUserId(HttpContext.User)
                 };
                 _ctx.Add(newNews);
                 await _ctx.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            }
             return View(newArticle);
         }
+
+        
 
         public async Task<IActionResult>Update(int? id)
         {

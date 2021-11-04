@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplicationUniversoGames.Enums;
+using WebApplicationUniversoGames.Models;
 
 namespace WebApplicationUniversoGames.ViewModel
 {
@@ -18,5 +19,7 @@ namespace WebApplicationUniversoGames.ViewModel
         [StringLength(2000, MinimumLength = 50)]
         public string Content { get; set; }
         public DateTime Date { get; set; }
+        public string AuthorId { get; set; }
+        public AppUser Author { get; set; }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model WebApplicationUniversoGames.ViewModel.NewsCommentViewModel
+<h1>Make your own comment in here... sorry for the poor page, just wanted to try ^-^</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" asp-action="Create" asp-controller="Comment" class="customForm" enctype="multipart/form-data">
+                <label asp-for="UserId" class="form-label" hidden></label>
+                <div class="mb-3">
+                    <label asp-for="Content" class="control-label">Your comment</label>
+                    <textarea asp-for="Content" class="form-control" id="" rows="3" placeholder="Inserisci Titolo..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <input type="submit" name="" value="Create" class="btn btn-info" width="65" />
+                        <a asp-action="Index" class="btn btn-outline-info" width="65">Indietro</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

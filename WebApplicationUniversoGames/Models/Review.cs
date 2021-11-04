@@ -18,5 +18,7 @@ namespace WebApplicationUniversoGames.Models
         public double Score { get; set; }
         [Required]
         public string CoverImage { get; set; }
+        public string AuthorId { get; set; }
+        public AppUser Author { get; set; }
     }
 }

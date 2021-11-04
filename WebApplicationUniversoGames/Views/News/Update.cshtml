@@ -7,6 +7,7 @@
 
 <form asp-action="Update" class="customForm" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
+    <input asp-for="AuthorId" hidden />
     <div class="form-group mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control">
@@ -21,7 +22,7 @@
         <div class="row">
             <div class="col-6">
                 <label asp-for="UploadedImage" class="control-label">Choose a file</label>
-                <input asp-for="ExistingImage" hidden/>
+                <input asp-for="ExistingImage" hidden />
                 <input asp-for="UploadedImage" class="form-control-file" id="colorImgFile">
             </div>
             <div class="col-6 text-right">

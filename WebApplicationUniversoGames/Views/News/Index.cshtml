@@ -18,7 +18,7 @@
                     <div class="small" id="datecolor">@DateTime.Now.ToString("yyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    @if (SignInManager.IsSignedIn(User))
+                    @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
                     {
                         <a asp-action="Create" asp-controller="News" class="btn btn-primary w-100">Create a New Article</a>
                     }
@@ -53,7 +53,7 @@
                                     @if ((DateTime.Now - news.Date).Days < 2)
                                     {
                                         <div class="col-6 text-right">
-                                            <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
+                                            <h3 class="font-weight-bold">New<i class="fab fa-hotjar" style="color: red"></i></h3>
                                         </div>
                                     }
                                 </div>

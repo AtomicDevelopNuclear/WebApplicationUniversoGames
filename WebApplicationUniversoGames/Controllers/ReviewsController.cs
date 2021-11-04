@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,42 +17,14 @@ namespace WebApplicationUniversoGames.Controllers
     {
         private readonly DataContext _ctx;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ReviewsController(DataContext ctx, IWebHostEnvironment hostEnvironment)
+        public ReviewsController(DataContext ctx, IWebHostEnvironment hostEnvironment, UserManager<AppUser> userManager )
         {
             _ctx = ctx;
             _hostEnvironment = hostEnvironment;
+            _userManager = userManager;
         }
-
-        // vecchia funzione per richiamare le news
-        //public IActionResult Index()
-        //{
-        //    return View(_ctx.Reviews);
-        //}
-        /*
-        [HttpGet]
-        public IActionResult Index(int page = 1)
-        {
-            ViewBag.PageList = GetPagedNames(page);
-            return View();
-        }
-        protected IPagedList<Review> GetPagedNames(int? page)
-        {
-            // return a 404 if user browses to before the first page
-            if (page.HasValue && page < 1)
-                return null;
-
-            // retrieve list from database
-            var reviews = _ctx.Reviews.ToList();
-            // page the list
-            const int pageSize = 4;
-            var listPaged = reviews.ToPagedList(page ?? 1, pageSize);
-            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
-            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
-                return null;
-            return listPaged;
-        }
-        */
         public async Task<IActionResult> Index(string searchedString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchedString;
@@ -70,7 +43,7 @@ namespace WebApplicationUniversoGames.Controllers
             {
                 return NotFound();
             }
-            var reviewDetails = await _ctx.Reviews.FirstOrDefaultAsync(n => n.Id == id);
+            var reviewDetails = await _ctx.Reviews.Include(x=>x.Author).FirstOrDefaultAsync(n => n.Id == id);
             var reviewsViewModel = new ReviewsViewModel()
             {
                 Id = reviewDetails.Id,
@@ -79,7 +52,8 @@ namespace WebApplicationUniversoGames.Controllers
                 ExistingImage = reviewDetails.CoverImage,
                 Score = reviewDetails.Score,
                 Content = reviewDetails.Content,
-                Date = reviewDetails.Date
+                Date = reviewDetails.Date,
+                AuthorId = reviewDetails.AuthorId
             };
             if (reviewDetails is null)
             {
@@ -98,6 +72,8 @@ namespace WebApplicationUniversoGames.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ReviewsViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
             if (ModelState.IsValid)
             {
                 string uniqueFileName = ProcessUploadedFile(model);
@@ -109,11 +85,13 @@ namespace WebApplicationUniversoGames.Controllers
                     CoverImage = uniqueFileName,
                     Score = model.Score,
                     Content = model.Content,
-                    Date = DateTime.UtcNow
+                    Date = DateTime.UtcNow,
+                    AuthorId = _userManager.GetUserId(HttpContext.User)
                 };
                 _ctx.Add(newReview);
                 await _ctx.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
             }
             return View(model);
         }

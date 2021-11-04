@@ -31,5 +31,7 @@ namespace WebApplicationUniversoGames.Data
 
         public DbSet<News> News { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<NewsComment> NewsComments { get; set; }
+        public DbSet<ReviewComment> ReviewComments { get; set; }
     }
 }

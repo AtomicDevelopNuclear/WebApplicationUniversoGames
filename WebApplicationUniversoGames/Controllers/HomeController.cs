@@ -28,42 +28,6 @@ namespace WebApplicationUniversoGames.Controllers
         {
             return _ctx.Reviews.ToList();
         }
-        /*
-        public IActionResult Index(int page = 1)
-        {
-            dynamic allData = new ExpandoObject();
-            allData.News = GetAllNews();
-            allData.Reviews = GetAllReviews();
-            ViewBag.PageList = GetPagedNames(page);
-            return View(allData);
-        }
-        protected IPagedList<dynamic> GetPagedNames(int? page)
-        {
-            // return a 404 if user browses to before the first page
-            if (page.HasValue && page < 1)
-                return null;
-            List<dynamic> AllData = new List<dynamic>();
-            // retrieve list from database
-            var news = _ctx.News.ToList();
-            var reviews = _ctx.Reviews.ToList();
-            foreach(var a in news)
-            {
-                AllData.Add(a);
-            }
-            foreach(var r in reviews)
-            {
-                AllData.Add(r);
-            }
-        
-        // page the list
-        const int pageSize = 4;
-            var listPaged = AllData.ToPagedList(page ?? 1, pageSize);
-            // return a 404 if user browses to pages beyond last page. special case first page if no items exist
-            if (listPaged.PageNumber != 1 && page.HasValue && page > listPaged.PageCount)
-                return null;
-            return listPaged;
-        }
-        */
         public IActionResult Index(string searchedString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchedString;
