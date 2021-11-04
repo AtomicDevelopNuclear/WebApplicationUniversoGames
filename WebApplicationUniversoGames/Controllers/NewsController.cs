@@ -52,10 +52,7 @@ namespace WebApplicationUniversoGames.Controllers
         public async Task<IActionResult>Index(string searchedString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchedString;
-            if(searchedString != null)
-            {
-                pageNumber = 1;
-            }
+           
             var news =_ctx.News.AsQueryable();
             if (!String.IsNullOrEmpty(searchedString))
             {
