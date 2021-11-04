@@ -39,9 +39,6 @@ namespace WebApplicationUniversoGames
                 ServerVersion.AutoDetect(address)
                     )
                 );
-<<<<<<< HEAD
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataContext>();
-=======
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
             //Passwords requirements
             services.Configure<IdentityOptions>(opts => {
@@ -58,7 +55,6 @@ namespace WebApplicationUniversoGames
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
             });
->>>>>>> projectversionwithauth
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

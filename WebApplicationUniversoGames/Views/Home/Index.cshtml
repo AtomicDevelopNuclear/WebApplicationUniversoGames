@@ -58,9 +58,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
-
                                     </div>
-                                    @if ((DateTime.Now - news.Date).Days <= 2)
+                                    @if ((DateTime.Now - @news.Date).Days <= 2)
                                     {
                                         <div class="col-6 text-right">
                                             <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
