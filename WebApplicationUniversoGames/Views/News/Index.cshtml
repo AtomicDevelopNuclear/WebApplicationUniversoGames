@@ -15,7 +15,7 @@
             <div class="card mb-4">
                 <a href="#!"><img class="card-img-top" src="https://www.telefilm-central.org/wp-content/uploads/2019/05/cleganebowl-game-of-thrones-1.jpg" alt="..." /></a>
                 <div class="card-body">
-                    <div class="small text-muted">@DateTime.Now.ToString("yyy-MM-dd")</div>
+                    <div class="small" id="datecolor">@DateTime.Now.ToString("yyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                     @if (SignInManager.IsSignedIn(User))
@@ -25,6 +25,15 @@
 
                 </div>
             </div>
+
+            @if (Model.Count == 0)
+                {
+                    <div id="noTrovato">
+                        NESSUN RISULTATO TROVATO
+                        <br><br>
+                    </div>
+                }
+
             <div class="row">
                 @foreach (var news in Model)
                 {
@@ -33,7 +42,7 @@
                         <div class="card mb-4">
                             <a><img class="card-img-top" src="@NewsFileLocation.RetriveFileFromFolder@news.Image" asp-append-version="true" height="300" width="700" /></a>
                             <div class="card-body">
-                                <div class="small text-muted">Published on: @news.Date.ToString("yyyy-MM-dd")</div>
+                                <div class="small" id="datecolor">Published on: @news.Date.ToString("yyyy-MM-dd")</div>
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
                                 <p class="card-text" id="contnews">@news.Content</p>
@@ -41,7 +50,7 @@
                                     <div class="col-6">
                                         <a class="btn btn-primary" asp-action="Details" asp-controller="News" asp-route-id="@news.Id">Read More</a>
                                     </div>
-                                    @if ((DateTime.Now - news.Date).Days <= 2)
+                                    @if ((DateTime.Now - news.Date).Days < 2)
                                     {
                                         <div class="col-6 text-right">
                                             <h4 class="text-danger font-weight-bold">HOT<i class="fab fa-hotjar" style="color: red"></i></h4>
@@ -64,13 +73,13 @@
 
             <a asp-action="Index"
                asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchedString="@ViewData["CurrentFilter"]"
                class="btn btn-outline-light w-25 @prevDisabled">
                 Previous
             </a>
             <a asp-action="Index"
                asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchedString="@ViewData["CurrentFilter"]"
                class="btn btn-outline-light w-25 @nextDisabled">
                 Next
             </a>

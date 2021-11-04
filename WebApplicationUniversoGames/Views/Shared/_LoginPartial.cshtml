@@ -7,17 +7,17 @@
     if (User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Menage users</a>
+            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Menage users</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Menage roles</a>
+            <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">Menage roles</a>
         </li>
     }
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hi @User.Identity.Name</a>
+        <a class="nav-link" id="user" asp-area="" asp-controller="Home" asp-action="Index">Hi @User.Identity.Name</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+        <a class="nav-link" id="user" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
     </li>
 }
 else

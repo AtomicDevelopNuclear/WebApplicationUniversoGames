@@ -55,10 +55,7 @@ namespace WebApplicationUniversoGames.Controllers
         public async Task<IActionResult> Index(string searchedString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchedString;
-            if (searchedString != null)
-            {
-                pageNumber = 1;
-            }
+            
             var reviews = from n in _ctx.Reviews select n;
             if (!String.IsNullOrEmpty(searchedString))
             {

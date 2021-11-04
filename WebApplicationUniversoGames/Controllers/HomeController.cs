@@ -67,10 +67,7 @@ namespace WebApplicationUniversoGames.Controllers
         public IActionResult Index(string searchedString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchedString;
-            if (searchedString != null)
-            {
-                pageNumber = 1;
-            }
+            
             IQueryable<ArticleCommons> allData = new List<ArticleCommons>().Concat(_ctx.News.ToList()).Concat(_ctx.Reviews.ToList()).AsQueryable();
             if (!String.IsNullOrEmpty(searchedString))
             {

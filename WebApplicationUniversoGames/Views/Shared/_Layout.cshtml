@@ -25,7 +25,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active" id="articleslink">
-                        <a class="nav-link" asp-action="Index" asp-controller="News">Articles<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" asp-action="Index" asp-controller="News">News<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active" id="reviewslink">
                         <a class="nav-link" asp-action="Index" asp-controller="Reviews">Reviews<span class="sr-only">(current)</span></a>
@@ -41,23 +41,25 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="p-4 mt-5">
-            @RenderBody()
+        <main role="main" class="p-4">
+            <div class= "mt-5">
+                @RenderBody()
+            </div>
         </main>
     </div>
     <footer class="text-center text-white" style="background-color:rgb(0, 0, 39); border-top:3px solid; border-top-color:#B0FFE7; ">
         <ul class="list-inline d-flex justify-content-center mb-3 footer__social mt-4">
             <li>
-            <a href="#"class="fab fa-facebook px-2 text-decoration-none"></a>
+            <a id="socialIcon" href="#"class="fab fa-facebook px-2 text-decoration-none"></a>
             </li>
             <li>
-                <a href="#" class="fab fa-twitter px-2 text-decoration-none"></a>
+                <a  id="socialIcon"href="#" class="fab fa-twitter px-2 text-decoration-none"></a>
             </li>
             <li>
-                <a href="#" class="fab fa-google-plus-g px-2 text-decoration-none"></a>
+                <a id="socialIcon" href="#" class="fab fa-google-plus-g px-2 text-decoration-none"></a>
             </li>
             <li>
-                <a href="#" class="fab fa-telegram-plane px-2 text-decoration-none"></a>
+                <a id="socialIcon" href="#" class="fab fa-telegram-plane px-2 text-decoration-none"></a>
             </li>
         </ul>
         <p id="copyrightTeam" class="mt-2 p-1">Universo Games. Powered By &clubs;Team NEXXT&clubs; <script>document.write(new Date().getFullYear());</script></p>

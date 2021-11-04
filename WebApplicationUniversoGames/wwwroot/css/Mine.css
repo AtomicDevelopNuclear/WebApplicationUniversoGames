@@ -26,7 +26,29 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-} 
+    position: relative;
+}
+main {
+    min-height: 80vh;
+}
+
+.form-control-file {
+    display: inline;
+    width: 260px;
+}
+
+#colorImgFile {
+    color:whitesmoke;
+}
+
+#noTrovato {
+    color: yellow;
+    margin-left: 39%;
+}
+
+#socialIcon {
+    color: gold;
+}
 
 .btn-primary {     
     color: #fff;     
@@ -46,7 +68,11 @@ body {
 
 h1 {     
     color:#ff911a !important; 
-} 
+}
+
+footer {
+    height: 20vh;
+}
 
 
 .card {     

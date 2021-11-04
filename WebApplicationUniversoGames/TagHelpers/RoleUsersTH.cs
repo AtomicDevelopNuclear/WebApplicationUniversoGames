@@ -31,7 +31,7 @@ namespace WebApplicationUniversoGames.TagHelpers
                 IdentityRole role = await roleManager.FindByIdAsync(Role);
                 if (role != null)
                 {
-                    foreach (var user in userManager.Users)
+                    foreach (var user in userManager.Users.ToList())
                     {
                         if (user != null && await userManager.IsInRoleAsync(user, role.Name))
                             names.Add(user.UserName);

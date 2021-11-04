@@ -7,29 +7,35 @@
 
 <form asp-action="Update" class="customForm" enctype="multipart/form-data">
     <input asp-for="Id" hidden />
-    <div class="mb-3">
+    <div class="form-group mb-3">
         <label asp-for="Title" class="form-label">Title</label>
         <input asp-for="Title" class="form-control">
     </div>
-    <div class="mb-3">
+    <div class="form-group mb-3">
         <label asp-for="Category" class="form-label">Category</label>
         <select asp-for="Category" class="form-control" asp-items="Html.GetEnumSelectList<Categories>()">
             <option>Please choose a category</option>
         </select>
     </div>
-    <div class="custom-file mb-5">
-        <label asp-for="UploadedImage" class="control-label">Choose a file</label>
-        <input asp-for="ExistingImage" hidden/>
-        <input asp-for="UploadedImage" class="form-control-file">
-        <img src="@NewsFileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
+    <div class="form-group custom-file mb-3">
+        <div class="row">
+            <div class="col-6">
+                <label asp-for="UploadedImage" class="control-label">Choose a file</label>
+                <input asp-for="ExistingImage" hidden/>
+                <input asp-for="UploadedImage" class="form-control-file" id="colorImgFile">
+            </div>
+            <div class="col-6 text-right">
+                <img src="@NewsFileLocation.RetriveFileFromFolder@Model.ExistingImage" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
+    <div class="form-group mb-3">
         <label asp-for="Content" class="form-label">Content</label>
         <textarea asp-for="Content" class="form-control" rows="10"></textarea>
     </div>
     <input asp-for="Date" hidden />
     <div class="form-group row">
-        <div class="col">
+        <div class="form-group col">
             <input type="submit" value="Update" class="btn btn-success" width="65" />
             <a asp-action="Index" class="btn btn-outline-info" width="65">Indietro</a>
         </div>
