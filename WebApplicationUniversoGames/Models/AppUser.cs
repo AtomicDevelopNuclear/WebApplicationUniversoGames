@@ -8,6 +8,6 @@ namespace WebApplicationUniversoGames.Models
 {
     public class AppUser : IdentityUser
     {
-
+        //fields
     }
 }

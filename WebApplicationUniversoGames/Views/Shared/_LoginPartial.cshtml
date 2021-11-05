@@ -13,7 +13,7 @@
             <a class="nav-link" asp-area="" asp-controller="Role" asp-action="Index">Menage roles</a>
         </li>
     }
-    if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+    if (User.IsInRole("Editor"))
     {
         <li class="nav-item">
             <a class="nav-link" asp-area="" asp-controller="News" asp-action="Create"><i class="fas fa-plus"></i> New Article</a>

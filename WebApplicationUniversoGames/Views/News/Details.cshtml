@@ -49,7 +49,7 @@
                                                 }
                                             </div>
                                     </div>
-                                    <h3 mt-1>@comment.Content</h3>
+                                    <h5 mt-1>@comment.Content</h5>
                                     <div class="small text-muted">@comment.Date</div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                     <div class="col-12">
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <a class="btn btn-warning mt-3" asp-action="Create" asp-controller="Comment" asp-route-id="@Model.Item1.Id">Make a comment!</a>
+                            <a class="btn btn-primary mt-3" asp-action="Create" asp-controller="Comment" asp-route-id="@Model.Item1.Id">Make a comment!</a>
                         }
                         else
                         {

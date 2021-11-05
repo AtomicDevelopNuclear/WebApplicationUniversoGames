@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<AppUser>
 
-<h1 class="bg-info text-white">All Users</h1>
-<a asp-action="Create" class="btn btn-secondary">Create a User</a>
+<h1 class="text-white">All Users</h1>
+<a asp-action="Create" class="btn btn-info mt-2">Create a User</a>
 
-<table class="table table-sm table-bordered table-bordered table-dark">
+<table class="table table-sm table-bordered table-bordered table-dark mt-2">
     <tr><th>ID</th><th>Name</th><th>Email</th><th>Update</th><th>Delete</th></tr>
     @foreach (AppUser user in Model)
     {

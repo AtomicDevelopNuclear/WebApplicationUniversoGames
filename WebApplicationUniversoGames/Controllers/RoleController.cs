@@ -80,7 +80,7 @@ namespace WebApplicationUniversoGames.Controllers
             List<AppUser> nonMembers = new List<AppUser>();
             foreach(AppUser user in _userManager.Users.ToList())
             {
-                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+                var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;//!!!
                 list.Add(user);
             }
             return View(new RoleEdit
