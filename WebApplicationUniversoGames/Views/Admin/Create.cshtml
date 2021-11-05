@@ -2,11 +2,11 @@
 @{
     ViewData["Title"] = "Admin | Create new user";
 }
-<h1 class="bg-info text-white">Create User</h1>
-<a asp-action="Index" class="btn btn-secondary">Back</a>
+<h1 class="text-white">Create User</h1>
+
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form method="post">
+<form method="post" class="customForm">
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
@@ -20,4 +20,5 @@
         <input asp-for="Password" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
 </form>
