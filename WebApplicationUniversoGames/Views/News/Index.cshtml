@@ -15,7 +15,6 @@
             <div class="card mb-4">
                 <a href="#!"><img class="card-img-top" src="https://www.telefilm-central.org/wp-content/uploads/2019/05/cleganebowl-game-of-thrones-1.jpg" alt="..." /></a>
                 <div class="card-body">
-                    <div class="small" id="datecolor">@DateTime.Now.ToString("yyy-MM-dd")</div>
                     <h2 class="card-title">In this section yo can create a new content for our news section. Feel free to be not politically correct</h2>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
                     @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
@@ -42,7 +41,7 @@
                         <div class="card mb-4">
                             <a><img class="card-img-top" src="@NewsFileLocation.RetriveFileFromFolder@news.Image" asp-append-version="true" height="300" width="700" /></a>
                             <div class="card-body">
-                                <div class="small" id="datecolor">Published on: @news.Date.ToString("yyyy-MM-dd")</div>
+                                <div class="small text-muted">Published on: @news.Date.ToString("yyyy-MM-dd")</div>
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
                                 <p class="card-text" id="contnews">@news.Content</p>

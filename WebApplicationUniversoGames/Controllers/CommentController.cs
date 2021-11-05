@@ -43,7 +43,7 @@ namespace WebApplicationUniversoGames.Controllers
                     };
                     _ctx.Add(comment);
                     await _ctx.SaveChangesAsync();
-                    return RedirectToAction("Index", "News");
+                    return RedirectToAction($"Details", "News", new { id = currentNews.Id});
                 }
             }
             return View(newComment);

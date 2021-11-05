@@ -45,7 +45,7 @@
                         <div class="card mb-4">
                             <a><img class="card-img-top" src="~/NewsUploads/@news.Image" alt="..." height="250" width="700" /></a>
                             <div class="card-body">
-                                <div class="small" id="datecolor" >Published on: @news.Date.ToString("yyyy-MM-dd")</div>
+                                <div class="small text-muted" >Published on: @news.Date.ToString("yyyy-MM-dd")</div>
                                 <h2 class="card-title h4">@news.Title</h2>
                                 <a>Category: @news.Category</a>
                                 <p class="card-text" id="contnews">@news.Content</p>
@@ -71,7 +71,7 @@
                         <div class="card mb-4">
                             <a><img class="card-img-top" src="~/ReviewsUploads/@review.CoverImage" alt="..." height="250" width="700" /></a>
                             <div class="card-body">
-                                <div class="small" id="datecolor">Published on: @review.Date.ToString("yyyy-MM-dd")</div>
+                                <div class="small text-muted">Published on: @review.Date.ToString("yyyy-MM-dd")</div>
                                 <div class="row">
                                     <div class="col-8">
                                         <h2 class="card-title h4" id="contnews">@review.Title</h2>
